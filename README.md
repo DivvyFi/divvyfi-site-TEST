@@ -1,7 +1,9 @@
 # divvyfi-site
-“Fractional finance made simple”
 
-DivvyFi is a financial technology company centered around DeFi (Decentralized Finance) on a mission to create more inclusive, accessible, shared, and fairly distributed financial opportunities that aren’t accessible through TradFi (Traditional Finance). 
+“Fractional Finance Made Simple”
+
+DivvyFi is a financial technology company on a mission to create more inclusive, accessible, shared, and fairly distributed ownership of real assets that aren’t accessible through traditional finance. 
+
 The term DivvyFi is a fusion of two ideas:
 “Divvy” = to divide, share, or split something fairly (like splitting costs, profits, or investments).
 
