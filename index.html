@@ -69,30 +69,36 @@
 
   <!-- Scripts -->
   <script>
-    // Mock properties JSON
-    const properties = [
-      { id: 1, name: "Sample Duplex", price: 250000, yieldRange: [8, 10] },
-      { id: 2, name: "Multi-Family 4-Unit", price: 600000, yieldRange: [9, 12] },
-      { id: 3, name: "Downtown Condo", price: 400000, yieldRange: [7, 9] }
-    ];
-
-    // Populate properties list
-    const propertiesList = document.getElementById('properties-list');
-    properties.forEach(p => {
-      const card = document.createElement('div');
-      card.className = "bg-white shadow p-6 rounded";
-      card.innerHTML = `
-        <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
-        <p class="mb-2">Price: $${p.price.toLocaleString()}</p>
-        <p class="mb-4">Yield: ${p.yieldRange[0]}% – ${p.yieldRange[1]}%</p>
-        <button onclick="invest(${p.id})" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">Invest</button>
-      `;
-      propertiesList.appendChild(card);
-    });
-
-    // Portfolio stored in localStorage
+    let properties = [];
     let portfolio = JSON.parse(localStorage.getItem('divvyfiPortfolio')) || [];
 
+    // Load properties.json
+    fetch("properties.json")
+      .then(res => res.json())
+      .then(data => {
+        properties = data;
+        renderProperties();
+      })
+      .catch(err => console.error("Error loading properties:", err));
+
+    // Render properties cards
+    function renderProperties() {
+      const propertiesList = document.getElementById('properties-list');
+      propertiesList.innerHTML = "";
+      properties.forEach(p => {
+        const card = document.createElement('div');
+        card.className = "bg-white shadow p-6 rounded";
+        card.innerHTML = `
+          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+          <p class="mb-2">Price: $${p.price.toLocaleString()}</p>
+          <p class="mb-4">Yield: ${p.yieldRange[0]}% – ${p.yieldRange[1]}%</p>
+          <button onclick="invest(${p.id})" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">Invest</button>
+        `;
+        propertiesList.appendChild(card);
+      });
+    }
+
+    // Add to portfolio
     function invest(id) {
       const property = properties.find(p => p.id === id);
       const tokensOwned = 100; // demo fixed investment
@@ -115,7 +121,7 @@
       alert(`Invested in ${property.name}!`);
     }
 
-    // Update portfolio table
+    // Update portfolio
     function updatePortfolio() {
       const portfolioBody = document.getElementById('portfolio-body');
       portfolioBody.innerHTML = '';
@@ -144,7 +150,7 @@
         `Total Estimated Annual Yield: $${totalMinYield.toFixed(2)} – $${totalMaxYield.toFixed(2)} | Accrued: $${totalAccrued.toFixed(2)}`;
     }
 
-    // Simulate monthly rental payouts
+    // Simulate monthly payouts
     document.getElementById('payout-btn').addEventListener('click', () => {
       portfolio.forEach(p => {
         const monthlyYieldMin = (p.investment * p.yieldRange[0] / 100) / 12;
