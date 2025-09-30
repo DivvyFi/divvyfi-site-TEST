@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DivvyFi Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Investor Dashboard</h1>
+  </header>
+
+  <!-- Portfolio Summary -->
+  <section class="portfolio-summary">
+    <div>Total Invested: $<span id="total-invested">0</span></div>
+    <div>Projected Yields: $<span id="projected-yields">0</span></div>
+    <div>Monthly Cashflow: $<span id="monthly-cashflow">0</span></div>
+    <div id="risk-chart-container"><canvas id="risk-chart"></canvas></div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="quick-actions">
+    <button onclick="alert('Invest flow placeholder')">Invest in New Deals</button>
+    <button onclick="alert('Withdraw placeholder')">Withdraw / Reinvest</button>
+  </section>
+
+  <!-- Property Cards -->
+  <section id="dashboard-properties" class="featured-properties">
+    <h2>Your Properties</h2>
+    <div id="dashboard-property-list"></div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
