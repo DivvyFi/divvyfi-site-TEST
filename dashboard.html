@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DivvyFi | Investor Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.4/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+
+<section class="py-12">
+  <div class="container mx-auto max-w-4xl text-center">
+    <h1 class="text-4xl font-bold mb-6">Investor Dashboard</h1>
+
+    <!-- Filters -->
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-6">
+      <select id="filter-type" class="border p-2 rounded">
+        <option value="">All Types</option>
+        <option value="Duplex">Duplex</option>
+        <option value="4-Plex">4-Plex</option>
+        <option value="Multi-Family">Multi-Family</option>
+      </select>
+
+      <select id="sort-option" class="border p-2 rounded">
+        <option value="">Sort By</option>
+        <option value="priceAsc">Price ↑</option>
+        <option value="priceDesc">Price ↓</option>
+        <option value="yieldAsc">Yield ↑</option>
+        <option value="yieldDesc">Yield ↓</option>
+      </select>
+    </div>
+
+    <div id="property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Properties will be loaded here -->
+    </div>
+
+    <!-- Yield Calculator -->
+    <div class="mt-12 bg-white p-6 rounded shadow max-w-md mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Estimate Your Yield</h2>
+      <input type="number" id="investment" placeholder="Investment Amount ($)" class="w-full border p-2 rounded mb-2">
+      <select id="property-yield" class="w-full border p-2 rounded mb-2">
+        <option value="0">Select Property Yield</option>
+      </select>
+      <button id="calculate" class="w-full bg-blue-900 text-white p-2 rounded hover:bg-blue-800">Calculate</button>
+      <p id="yield-result" class="mt-4 font-bold"></p>
+    </div>
+
+    <!-- Token Simulation -->
+    <div class="mt-12 bg-white p-6 rounded shadow max-w-md mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Simulate Token Ownership</h2>
+      <input type="number" id="token-investment" placeholder="Investment Amount ($)" class="w-full border p-2 rounded mb-2">
+      <select id="property-token" class="w-full border p-2 rounded mb-2">
+        <option value="0">Select Property</option>
+      </select>
+      <button id="calculate-token" class="w-full bg-green-700 text-white p-2 rounded hover:bg-green-600">Add to Portfolio</button>
+      <p id="token-result" class="mt-4 font-bold"></p>
+    </div>
+
+    <!-- Portfolio Tracker -->
+    <div class="mt-12 bg-white p-6 rounded shadow max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Your Portfolio</h2>
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b">
+            <th class="py-2">Property</th>
+            <th class="py-2">Tokens Owned</th>
+            <th class="py-2">Ownership %</th>
+            <th class="py-2">Estimated Yield ($)</th>
+          </tr>
+        </thead>
+        <tbody id="portfolio-body">
+          <!-- Portfolio entries -->
+        </tbody>
+      </table>
+      <p class="mt-4 font-bold" id="total-yield">Total Estimated Yield: $0</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="bg-gray-900 text-white py-6 text-center">
+  &copy; 2025 DivvyFi. All rights reserved.
+</footer>
+
+<script>
+let properties = [];
+let portfolio = [];
+
+async function loadProperties() {
+  try {
+    const response = await fetch('properties.json');
+    properties = await response.json();
+    renderProperties(properties);
+    populateYieldCalculator(properties);
+    populateTokenDropdown(properties);
+  } catch (error) {
+    console.error('Error loading properties:', error);
+    document.getElementById('property-grid').innerHTML = '<p class="text-red-500">Failed to load properties.</p>';
+  }
+}
+
+function renderProperties(list) {
+  const grid = document.getElementById('property-grid');
+  grid.innerHTML = '';
+  list.forEach(prop => {
+    const card = document.createElement('div');
+    card.className = 'bg-white rounded shadow p-6';
+    card.innerHTML = `
+      <img src="${prop.image}" alt="${prop.name}" class="rounded mb-4">
+      <h2 class="text-2xl font-bold mb-2">${prop.name}</h2>
+      <p class="mb-2">Price: ${prop.price}</p>
+      <p class="mb-2">Yield: ${prop.yield}</p>
+      <p class="mb-2">Total Tokens: ${prop.tokens}</p>
+      <a href="contact.html" class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800">Express Interest</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Filters and sorting
+const filterType = document.getElementById('filter-type');
+const sortOption = document.getElementById('sort-option');
+filterType.addEventListener('change', applyFilters);
+sortOption.addEventListener('change', applyFilters);
+
+function applyFilters() {
+  let filtered = [...properties];
+  const type = filterType.value;
+  if (type) filtered = filtered.filter(p => p.type === type);
+
+  const sort = sortOption.value;
+  if (sort === 'priceAsc') filtered.sort((a, b) => parseInt(a.price.replace(/[$,]/g,'')) - parseInt(b.price.replace(/[$,]/g,'')));
+  if (sort === 'priceDesc') filtered.sort((a, b) => parseInt(b.price.replace(/[$,]/g,'')) - parseInt(a.price.replace(/[$,]/g,'')));
+  if (sort === 'yieldAsc') filtered.sort((a, b) => parseInt(a.yield.split('–')[0]) - parseInt(b.yield.split('–')[0]));
+  if (sort === 'yieldDesc') filtered.sort((a, b) => parseInt(b.yield.split('–')[0]) - parseInt(a.yield.split('–')[0]));
+
+  renderProperties(filtered);
+}
+
+// Yield calculator
+const investmentInput = document.getElementById('investment');
+const propertyYield = document.getElementById('property-yield');
+const calculateBtn = document.getElementById('calculate');
+const yieldResult = document.getElementById('yield-result');
+
+function populateYieldCalculator(props) {
+  props.forEach(p => {
+    const option = document.createElement('option');
+    option.value = p.yield;
+    option.textContent = `${p.name} (${p.yield})`;
+    propertyYield.appendChild(option);
+  });
+}
+
+calculateBtn.addEventListener('click', () => {
+  const investment = parseFloat(investmentInput.value);
+  if (!investment) return yieldResult.textContent = 'Enter a valid investment amount.';
+  const selectedYield = propertyYield.value;
+  if (!selectedYield || selectedYield === '0') return yieldResult.textContent = 'Select a property.';
+  const yieldRange = selectedYield.split('–').map(y => parseFloat(y));
+  const minYield = (investment * yieldRange[0] / 100).toFixed(2);
+  const maxYield = (investment * yieldRange[1] / 100).toFixed(2);
+  yieldResult.textContent = `Estimated annual yield: $${minYield} – $${maxYield}`;
+});
+
+// Token simulation & portfolio
+const tokenInvestment = document.getElementById('token-investment');
+const propertyToken = document.getElementById('property-token');
+const calculateTokenBtn = document.getElementById('calculate-token');
+const tokenResult = document.getElementById('token-result');
+const portfolioBody = document.getElementById('portfolio-body');
+const totalYield = document.getElementById('total-yield');
+
+function populateTokenDropdown(props) {
+  props.forEach(p => {
+    const option = document.createElement('option');
+    option.value = p.id;
+    option.textContent = `${p.name} (${p.tokens} tokens total)`;
+    propertyToken.appendChild(option);
+  });
+}
+
+calculateTokenBtn.addEventListener('click', () => {
+  const investment = parseFloat(tokenInvestment.value);
+  const propertyId = parseInt(propertyToken.value);
+  if (!investment) return tokenResult.textContent = 'Enter a valid investment amount.';
+  if (!propertyId || propertyId === 0) return tokenResult.textContent = 'Select a property.';
+
+  const prop = properties.find(p => p.id === propertyId);
+  const propPrice = parseFloat(prop.price.replace(/[$,]/g,''));
+  const tokenPrice = propPrice / prop.tokens;
+  const tokensOwned = Math.floor(investment / tokenPrice);
+  const ownershipPercent = ((tokensOwned / prop.tokens) * 100).toFixed(2);
+
+  // Add to portfolio
+  const existing = portfolio.find(p => p.id === propertyId);
+  if (existing) {
+    existing.tokensOwned += tokensOwned;
+    existing.ownershipPercent = ((existing.tokensOwned / prop.tokens) * 100).toFixed(2);
+    existing.investment += investment;
+  } else {
+    portfolio.push({
+      id: propertyId,
+      name: prop.name,
+      tokensOwned: tokensOwned,
+      ownershipPercent: ownershipPercent,
+      yieldRange: prop.yield.split('–').map(y => parseFloat(y)),
+      investment: investment
+    });
+  }
+
+  tokenResult.textContent = `Added ${tokensOwned} tokens (~${ownershipPercent}% of ${prop.name}) to your portfolio.`;
+  updatePortfolio();
+});
+
+function updatePortfolio() {
+  portfolioBody.innerHTML = '';
+  let totalMinYield = 0;
+  let totalMaxYield = 0;
+
+  portfolio.forEach(p => {
+    const minYield = p.investment * p.yieldRange[0] / 100;
+    const maxYield = p.investment * p.yieldRange[1] / 100;
+    totalMinYield += minYield;
+    totalMaxYield += maxYield;
+
+    const row = document.createElement('tr');
+    row.className = 'border-b';
+    row.innerHTML = `
+      <td class="py-2">${p.name}</td>
+      <td class="py-2">${p.tokensOwned}</td>
+      <td class="py-2">${p.ownershipPercent}%</td>
+      <td class="py-2">$${minYield.toFixed(2)} – $${maxYield.toFixed(2)}</td>
+    `;
+    portfolioBody.appendChild(row);
+  });
+
+  totalYield.textContent = `Total Estimated Yield: $${totalMinYield.toFixed(2)} – $${totalMaxYield.toFixed(2)}`;
+}
+
+window.onload = loadProperties;
+</script>
+
+</body>
+</html>
+
