@@ -1,0 +1,5 @@
+cd /path/to/repo
+touch .nojekyll
+git add .nojekyll
+git commit -m "Disable Jekyll for plain HTML site"
+git push origin main
