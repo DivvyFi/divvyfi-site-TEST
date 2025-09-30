@@ -1,0 +1,5 @@
+- name: Run GPT-5 script
+  env:
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  run: |
+    python scripts/update_index.py
