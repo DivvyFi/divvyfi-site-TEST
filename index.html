@@ -12,55 +12,69 @@
 
   <!-- Sticky Navbar -->
   <nav class="fixed w-full bg-gray-800 shadow-lg z-50">
-    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+    <div class="container mx-auto flex items-center justify-between px-4 py-4">
       <a href="#" class="flex items-center space-x-2">
-        <img src="assets/logo.svg" alt="DivvyFi Logo" class="h-8">
-        <span class="text-2xl font-bold text-indigo-400">DivvyFi</span>
+        <img src="assets/logo.svg" alt="DivvyFi Logo" class="h-8 w-auto">
       </a>
-      <ul class="flex space-x-6">
+
+      <!-- Desktop Menu -->
+      <ul class="hidden sm:flex space-x-6 items-center">
         <li><a href="#properties" class="hover:text-indigo-400">Properties</a></li>
         <li><a href="#calculator" class="hover:text-indigo-400">Calculator</a></li>
         <li><a href="#dashboard" class="hover:text-indigo-400">Dashboard</a></li>
         <li><button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded">Connect Wallet</button></li>
       </ul>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="sm:hidden">
+        <button id="menuToggle" class="text-white text-2xl">☰</button>
+      </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <ul id="mobileMenu" class="sm:hidden hidden flex-col space-y-2 px-4 pb-4 bg-gray-800">
+      <li><a href="#properties" class="hover:text-indigo-400 block">Properties</a></li>
+      <li><a href="#calculator" class="hover:text-indigo-400 block">Calculator</a></li>
+      <li><a href="#dashboard" class="hover:text-indigo-400 block">Dashboard</a></li>
+      <li><button class="w-full px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded mt-2">Connect Wallet</button></li>
+    </ul>
   </nav>
 
   <!-- Hero -->
-  <section class="h-screen flex items-center justify-center text-center bg-gradient-to-r from-gray-900 to-gray-800">
-    <div class="px-6">
-      <h1 class="text-5xl font-extrabold mb-6">Direct Access to Real Estate Yields Without Banks</h1>
-      <p class="text-lg text-gray-400 mb-6">Tokenized real estate investments for verified investors.</p>
+  <section class="h-screen flex items-center justify-center text-center bg-gradient-to-r from-gray-900 to-gray-800 pt-16">
+    <div class="px-4 sm:px-6 md:px-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">Own Real Estate Without Banks</h1>
+      <p class="text-gray-400 text-base sm:text-lg mb-6">DivvyFi is on a mission to help you own real assets - Tokenized for the Future of Finance.</p>
       <a href="#signup" class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 rounded text-white font-bold">Sign Up</a>
     </div>
   </section>
 
   <!-- Properties Carousel -->
-  <section id="properties" class="container mx-auto py-16 px-6">
-    <h2 class="text-3xl font-bold mb-8 text-indigo-400">Featured Properties</h2>
-    <div id="carousel" class="flex overflow-x-auto gap-6 snap-x snap-mandatory">
-      <!-- JS will populate cards from properties.json -->
+  <section id="properties" class="container mx-auto py-16 px-4 sm:px-6 md:px-8">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-indigo-400">Featured Properties</h2>
+    <div id="carousel" class="flex overflow-x-auto gap-4 sm:gap-6 snap-x snap-mandatory">
+      <!-- JS populates property cards -->
     </div>
   </section>
 
   <!-- Calculator -->
-  <section id="calculator" class="bg-gray-800 py-16 px-6">
+  <section id="calculator" class="bg-gray-800 py-16 px-4 sm:px-6 md:px-8">
     <div class="container mx-auto max-w-lg">
-      <h2 class="text-3xl font-bold mb-8 text-indigo-400">Yield Calculator</h2>
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-indigo-400">Yield Calculator</h2>
       <form id="calcForm" class="space-y-4">
         <input type="number" id="investment" placeholder="Investment Amount ($)" class="w-full p-3 rounded bg-gray-700 text-white">
         <input type="number" id="rate" placeholder="Expected Annual Yield (%)" class="w-full p-3 rounded bg-gray-700 text-white">
         <input type="number" id="years" placeholder="Years" class="w-full p-3 rounded bg-gray-700 text-white">
-        <button type="submit" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded">Calculate</button>
+        <button type="submit" class="w-full px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded">Calculate</button>
       </form>
       <p id="calcResult" class="mt-4 text-lg"></p>
     </div>
   </section>
 
   <!-- Dashboard -->
-  <section id="dashboard" class="container mx-auto py-16 px-6">
-    <h2 class="text-3xl font-bold mb-8 text-indigo-400">Investor Dashboard</h2>
-    <div class="grid md:grid-cols-3 gap-6">
+  <section id="dashboard" class="container mx-auto py-16 px-4 sm:px-6 md:px-8">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-indigo-400">Investor Dashboard</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
       <div class="bg-gray-800 p-6 rounded shadow">
         <h3 class="font-bold text-lg">Total Invested</h3>
         <p id="totalInvested" class="text-2xl mt-2">$0</p>
@@ -76,7 +90,7 @@
     </div>
   </section>
 
-  <!-- Modal (hidden initially, JS will toggle) -->
+  <!-- Modal -->
   <div id="propertyModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
     <div class="bg-gray-800 p-6 rounded max-w-lg w-full relative">
       <button id="modalClose" class="absolute top-2 right-2 text-white">X</button>
@@ -90,5 +104,13 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>
