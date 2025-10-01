@@ -1,107 +1,108 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DivvyFi – Decentralized Real Estate Ownership Made Simple </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DivvyFi | Tokenized Real Estate</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-950 text-gray-100">
+<body class="bg-gray-900 text-gray-100 font-sans">
 
-  <!-- Sticky Nav -->
-  <nav class="fixed top-0 left-0 right-0 bg-gray-900 shadow-md z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="text-xl font-bold">DivvyFi</div>
-      <ul class="flex space-x-6 text-sm font-medium">
-        <li><a href="#properties" class="hover:text-blue-400">Properties</a></li>
-        <li><a href="#calculator" class="hover:text-blue-400">Calculator</a></li>
-        <li><a href="#dashboard" class="hover:text-blue-400">Dashboard</a></li>
-        <li><a href="#" class="hover:text-blue-400">Connect Wallet</a></li>
+  <!-- ✅ Sticky Navbar -->
+  <nav class="fixed w-full bg-gray-800 shadow-lg z-50">
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+      <a href="#" class="text-2xl font-bold text-indigo-400">DivvyFi</a>
+      <ul class="flex space-x-6">
+        <li><a href="#properties" class="hover:text-indigo-400">Properties</a></li>
+        <li><a href="#calculator" class="hover:text-indigo-400">Calculator</a></li>
+        <li><a href="#dashboard" class="hover:text-indigo-400">Dashboard</a></li>
+        <li><button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded">Connect Wallet</button></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-900 to-gray-800">
-    <h1 class="text-4xl md:text-6xl font-bold mb-6">Direct Access to Real Estate Yields</h1>
-    <p class="max-w-2xl text-lg md:text-xl text-gray-400 mb-8">Tokenized duplexes, multifamily, and rental cashflows—no banks required.</p>
-    <a href="#signup" class="px-6 py-3 bg-blue-600 rounded-lg font-semibold hover:bg-blue-700 transition">Sign Up</a>
+  <!-- ✅ Hero Section -->
+  <section class="h-screen flex items-center justify-center text-center bg-gradient-to-r from-gray-900 to-gray-800">
+    <div class="px-6">
+      <h1 class="text-5xl font-extrabold mb-6">Direct Access to Real Estate Yields Without Banks</h1>
+      <p class="text-lg text-gray-400 mb-6">Tokenized real estate investments for verified investors.</p>
+      <a href="#signup" class="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 rounded text-white font-bold">Sign Up</a>
+    </div>
   </section>
 
-  <!-- Properties -->
-  <section id="properties" class="max-w-6xl mx-auto px-4 py-20">
-    <h2 class="text-3xl font-bold mb-8">Featured Properties</h2>
+  <!-- ✅ Properties Section -->
+  <section id="properties" class="container mx-auto py-16 px-6">
+    <h2 class="text-3xl font-bold mb-8 text-indigo-400">Available Properties</h2>
     <div id="property-list" class="grid md:grid-cols-3 gap-6"></div>
   </section>
 
-  <!-- Calculator -->
-  <section id="calculator" class="bg-gray-900 py-20 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-6">ROI Calculator</h2>
-      <p class="text-gray-400 mb-6">Estimate returns on your investment</p>
-      <div class="flex flex-col md:flex-row gap-4 justify-center">
-        <input id="investment" type="number" placeholder="Investment ($)" class="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none">
-        <input id="rate" type="number" placeholder="Annual % Yield" class="px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:outline-none">
-        <button onclick="calculateROI()" class="px-6 py-2 bg-blue-600 rounded-lg hover:bg-blue-700">Calculate</button>
-      </div>
-      <p id="result" class="mt-6 text-lg font-semibold"></p>
+  <!-- ✅ Calculator Section -->
+  <section id="calculator" class="bg-gray-800 py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-indigo-400">Yield Calculator</h2>
+      <form id="calcForm" class="space-y-4 max-w-lg">
+        <input type="number" id="investment" placeholder="Investment Amount ($)" class="w-full p-3 rounded bg-gray-700 text-white">
+        <input type="number" id="rate" placeholder="Expected Annual Yield (%)" class="w-full p-3 rounded bg-gray-700 text-white">
+        <input type="number" id="years" placeholder="Years" class="w-full p-3 rounded bg-gray-700 text-white">
+        <button type="submit" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded">Calculate</button>
+      </form>
+      <p id="calcResult" class="mt-4 text-lg"></p>
     </div>
   </section>
 
-  <!-- Dashboard -->
-  <section id="dashboard" class="max-w-6xl mx-auto px-4 py-20">
-    <h2 class="text-3xl font-bold mb-8">Investor Dashboard</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="p-6 bg-gray-800 rounded-lg shadow">
-        <h3 class="font-bold mb-2">Portfolio Value</h3>
-        <p>$50,000</p>
+  <!-- ✅ Dashboard Section -->
+  <section id="dashboard" class="container mx-auto py-16 px-6">
+    <h2 class="text-3xl font-bold mb-8 text-indigo-400">Investor Dashboard</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-gray-800 p-6 rounded shadow">
+        <h3 class="font-bold text-lg">Total Invested</h3>
+        <p class="text-2xl mt-2">$50,000</p>
       </div>
-      <div class="p-6 bg-gray-800 rounded-lg shadow">
-        <h3 class="font-bold mb-2">Projected Annual Yield</h3>
-        <p>12%</p>
+      <div class="bg-gray-800 p-6 rounded shadow">
+        <h3 class="font-bold text-lg">Avg Yield</h3>
+        <p class="text-2xl mt-2">12%</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded shadow">
+        <h3 class="font-bold text-lg">Properties Owned</h3>
+        <p class="text-2xl mt-2">5</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 py-6 text-center text-gray-500">
+  <!-- ✅ Footer -->
+  <footer class="bg-gray-800 py-6 text-center text-gray-500">
     © 2025 DivvyFi. All rights reserved.
   </footer>
 
-  <!-- Script to load properties -->
+  <!-- ✅ Scripts -->
   <script>
-    async function loadProperties() {
-      try {
-        const res = await fetch('properties.json');
-        const properties = await res.json();
-        const list = document.getElementById('property-list');
-        list.innerHTML = properties.map(p => `
-          <div class="bg-gray-800 rounded-lg p-4 shadow">
-            <img src="${p.image}" alt="${p.name}" class="w-full h-40 object-cover rounded">
-            <h3 class="mt-4 text-lg font-bold">${p.name}</h3>
+    // Load properties.json
+    fetch("properties.json")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("property-list");
+        data.forEach(p => {
+          const card = document.createElement("div");
+          card.className = "bg-gray-800 rounded shadow p-4";
+          card.innerHTML = `
+            <img src="${p.image}" alt="${p.name}" class="rounded mb-4">
+            <h3 class="text-xl font-bold mb-2">${p.name}</h3>
             <p class="text-gray-400">${p.location}</p>
-            <p class="text-sm mt-2">Yield: ${p.yield}%</p>
-          </div>
-        `).join('');
-      } catch (err) {
-        console.error("Error loading properties.json", err);
-      }
-    }
+            <p class="mt-2">Yield: <span class="text-indigo-400">${p.yield}%</span></p>
+          `;
+          list.appendChild(card);
+        });
+      });
 
-    function calculateROI() {
-      const investment = parseFloat(document.getElementById('investment').value);
-      const rate = parseFloat(document.getElementById('rate').value) / 100;
-      if (!isNaN(investment) && !isNaN(rate)) {
-        const roi = investment * rate;
-        document.getElementById('result').textContent = `Projected Annual Return: $${roi.toFixed(2)}`;
-      } else {
-        document.getElementById('result').textContent = "Please enter valid numbers.";
-      }
-    }
-
-    loadProperties();
+    // Calculator
+    document.getElementById("calcForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const invest = parseFloat(document.getElementById("investment").value);
+      const rate = parseFloat(document.getElementById("rate").value) / 100;
+      const years = parseInt(document.getElementById("years").value);
+      const result = invest * Math.pow(1 + rate, years);
+      document.getElementById("calcResult").innerText = `Future Value: $${result.toFixed(2)}`;
+    });
   </script>
 </body>
 </html>
-```
