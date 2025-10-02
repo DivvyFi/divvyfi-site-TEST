@@ -1,51 +1,65 @@
-// Load properties from JSON
-fetch("properties.json")
-  .then(res => res.json())
-  .then(data => {
-    const carousel = document.getElementById("carousel");
-    let totalYield = 0;
+// ----------- PROPERTIES CAROUSEL -----------
+const carousel = document.getElementById('carousel');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
 
-    data.forEach(p => {
-      totalYield += p.yield;
-      const card = document.createElement("div");
-      card.className = "flex-none w-80 bg-gray-800 p-4 rounded shadow snap-center cursor-pointer";
-      card.innerHTML = `
-        <img src="${p.image}" alt="${p.name}" class="rounded mb-4">
-        <h3 class="text-xl font-bold mb-1">${p.name}</h3>
-        <p class="text-gray-400">${p.location}</p>
-        <p class="mt-2">Yield: <span class="text-indigo-400">${p.yield}%</span></p>
-      `;
-      card.addEventListener("click", () => showModal(p));
-      carousel.appendChild(card);
-    });
-
-    // Dashboard update
-    document.getElementById("totalInvested").innerText = "$50,000";
-    document.getElementById("avgYield").innerText = (totalYield / data.length).toFixed(1) + "%";
-    document.getElementById("ownedProps").innerText = data.length;
-  });
-
-// Calculator
-document.getElementById("calcForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const invest = parseFloat(document.getElementById("investment").value);
-  const rate = parseFloat(document.getElementById("rate").value)/100;
-  const years = parseInt(document.getElementById("years").value);
-  const result = invest * Math.pow(1 + rate, years);
-  document.getElementById("calcResult").innerText = `Future Value: $${result.toFixed(2)}`;
-});
-
-// Modal functions
-function showModal(property){
-  document.getElementById("modalContent").innerHTML = `
-    <h3 class="text-xl font-bold mb-2">${property.name}</h3>
-    <img src="${property.image}" class="rounded mb-2">
-    <p>${property.location}</p>
-    <p>Yield: ${property.yield}%</p>
+properties.forEach((prop) => {
+  const card = document.createElement('div');
+  card.className = "min-w-[250px] sm:min-w-[300px] bg-gray-800 rounded-lg shadow hover:shadow-lg cursor-pointer snap-start flex-shrink-0";
+  card.innerHTML = `
+    <img src="${prop.image}" alt="${prop.title}" class="rounded-t-lg w-full h-48 object-cover">
+    <div class="p-4">
+      <h3 class="font-bold text-lg">${prop.title}</h3>
+      <p class="text-gray-400">${prop.price} | Yield: ${prop.yield}</p>
+    </div>
   `;
-  document.getElementById("propertyModal").classList.remove("hidden");
-}
-document.getElementById("modalClose").addEventListener("click", () => {
-  document.getElementById("propertyModal").classList.add("hidden");
+  card.addEventListener('click', () => openModal(prop));
+  carousel.appendChild(card);
 });
 
+// Scroll by card width when clicking arrows
+function scrollCarousel(direction) {
+  const cardWidth = carousel.querySelector('div').offsetWidth + 16; // 16px gap
+  carousel.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+}
+
+prevBtn.addEventListener('click', () => scrollCarousel(-1));
+nextBtn.addEventListener('click', () => scrollCarousel(1));
+
+// ----------- MOBILE SWIPE SUPPORT -----------
+let isDown = false;
+let startX;
+let scrollLeft;
+
+carousel.addEventListener('mousedown', (e) => {
+  isDown = true;
+  carousel.classList.add('cursor-grabbing');
+  startX = e.pageX - carousel.offsetLeft;
+  scrollLeft = carousel.scrollLeft;
+});
+carousel.addEventListener('mouseleave', () => {
+  isDown = false;
+  carousel.classList.remove('cursor-grabbing');
+});
+carousel.addEventListener('mouseup', () => {
+  isDown = false;
+  carousel.classList.remove('cursor-grabbing');
+});
+carousel.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - carousel.offsetLeft;
+  const walk = (x - startX) * 1; // scroll-fast multiplier
+  carousel.scrollLeft = scrollLeft - walk;
+});
+
+// Touch support
+carousel.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].pageX - carousel.offsetLeft;
+  scrollLeft = carousel.scrollLeft;
+});
+carousel.addEventListener('touchmove', (e) => {
+  const x = e.touches[0].pageX - carousel.offsetLeft;
+  const walk = (x - startX) * 1;
+  carousel.scrollLeft = scrollLeft - walk;
+});
