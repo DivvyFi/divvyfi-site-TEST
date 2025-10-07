@@ -23,7 +23,7 @@ const Banner = () => {
             <div className='grid grid-cols-1 lg:grid-cols-12 my-16 items-center'>
               <div className='lg:col-span-7 mb-16'>
                 <h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight capitalize'>
-                  Buy, Sell & Accept <br /> Cryptocurrency with Ease
+                  Own Real Assets <br /> Keep Your Cryptocurrency
                 </h1>
                 <p className='text-white font-normal mb-10 max-w-[70%] lg:text-start text-center lg:mx-0 mx-auto capitalize'>
                   A fast, secure, and user-friendly platform to trade Bitcoin,
