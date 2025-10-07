@@ -23,7 +23,7 @@ const Banner = () => {
             <div className='grid grid-cols-1 lg:grid-cols-12 my-16 items-center'>
               <div className='lg:col-span-7 mb-16'>
                 <h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight'>
-                  “Real Ownership, <br /> Real World Assets. Re-Invented.
+                  Real Ownership, <br /> Real World Assets.
                 </h1>
                 <p className='text-white font-normal mb-10 max-w-[70%] lg:text-start text-center lg:mx-0 mx-auto capitalize'>
                   DivvyFi is the bridge between the old world of finance locked behind banks, and the new world of financial freedom that breaks those barriers.
