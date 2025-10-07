@@ -23,14 +23,14 @@ const Banner = () => {
             <div className='grid grid-cols-1 lg:grid-cols-12 my-16 items-center'>
               <div className='lg:col-span-7 mb-16'>
                 <h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight capitalize'>
-                  Own Real Assets, <br /> Keep Your Crypto
+                  “Real Ownership.”, <br /> Real World Assets. Re-Invented.
                 </h1>
                 <p className='text-white font-normal mb-10 max-w-[70%] lg:text-start text-center lg:mx-0 mx-auto capitalize'>
-                  At DivvyFi, you own real income producing assets, while earning crypto. Lean what decentralized finance can do for you.
+                  DivvyFi is the bridge between the old world of finance locked behind banks, and the new world of financial freedom that breaks those barriers.
                 </p>
                 <div className='flex align-middle justify-center lg:justify-start'>
                   <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary rounded-xl mr-6 cursor-pointer'>
-                    Get Started
+                    See Assets
                   </button>
                   <button
                     onClick={openModal}
@@ -42,7 +42,7 @@ const Banner = () => {
                       width={47}
                       height={47}
                     />
-                    <span className='hover:text-primary'>How It Work</span>
+                    <span className='hover:text-primary'>How It Works</span>
                   </button>
                 </div>
               </div>
@@ -73,8 +73,8 @@ const Banner = () => {
             <iframe
               height='400'
               className='p-4 md:w-[50rem] w-full'
-              src='https://www.youtube.com/embed/xAAEiykov1w?si=7Keuu5t0oJzZ67Q-'
-              title='How Our Product Works'
+              src='https://www.youtube.com/channel/UC-Y-0dGlA3z8RfkZyKiPycQ'
+              title='How DiffyFi works'
               frameBorder='0'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               referrerPolicy='strict-origin-when-cross-origin'
