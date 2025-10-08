@@ -7,14 +7,14 @@ const Logo: React.FC = () => {
       <Image
         src="/images/logo/divvyfi-logo.png"   // 👈 updated path
         alt="DivvyFi Logo"
-        width={250}
-        height={100}
+        width={125}
+        height={50}
         priority
         quality={100}
         style={{
           width: "auto",
           height: "auto",
-          maxWidth: "250px",
+          maxWidth: "125px",
           display: "block",
         }}
       />
