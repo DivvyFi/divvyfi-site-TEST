@@ -21,19 +21,19 @@ const Banner = () => {
         <div className='container lg:pt-20 pt-10 relative'>
           <div className='relative z-10'>
             <div className='grid grid-cols-1 lg:grid-cols-12 my-16 items-center'>
-              <div className="flex flex-col items-center justify-center text-center lg:text-left lg:items-start min-h-[80vh] px-6 lg:px-20">
-  <div className="max-w-3xl">
+              <div className="flex flex-col items-center justify-center text-center lg:text-left lg:items-start min-h-[80vh] px-5 sm:px-8 lg:px-20">
+  <div className="w-full max-w-2xl mx-auto">
     <h1
-      className="mb-6 leading-tight font-bold text-center lg:text-left"
+      className="mb-6 font-semibold text-gray-900"
       style={{
-        fontSize: 'clamp(1.8rem, 6vw, 3.5rem)',
-        lineHeight: '1.15',
-        wordBreak: 'keep-all',
+        fontSize: 'clamp(1.75rem, 6vw, 3.25rem)',
+        lineHeight: '1.2',
+        letterSpacing: '-0.015em',
       }}
     >
       <span className="block">Real People.</span>
       <span className="block">Real World Assets.</span>
-      <span className="block">Real Ownership.</span>
+      <span className="block text-blue-600">Real Ownership.</span>
     </h1>
                 <p className='text-white font-normal mb-10 max-w-[90%] lg:text-start text-center lg:mx-0 mx-auto'>
                   DivvyFi isn’t just a fintech platform, it’s the bridge between the old world of finance locked behind banks, and the new world of blockchain secured by real assets that breaks those barriers.
