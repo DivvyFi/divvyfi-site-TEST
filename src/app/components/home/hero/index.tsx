@@ -25,7 +25,7 @@ const Banner = () => {
                 <h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight'>
                   Real People. <br /> Real World Assets. <br /> Real Ownership.
                 </h1>
-                <p className='text-white font-normal mb-10 max-w-[80%] lg:text-start text-center lg:mx-0 mx-auto'>
+                <p className='text-white font-normal mb-10 max-w-[90%] lg:text-start text-center lg:mx-0 mx-auto'>
                   DivvyFi isn’t just a fintech platform, it’s the bridge between the old world of finance locked behind banks, and the new world of blockchain secured by real assets that breaks those barriers.
                 </p>
                 <div className='flex align-middle justify-center lg:justify-start'>
