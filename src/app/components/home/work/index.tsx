@@ -30,9 +30,9 @@ const Work = () => {
       <div className='container'>
         <div className='text-center mb-14'>
           <h2 className='mb-3 capitalize'>Why it Works</h2>
-          <p className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 capitalize'>
-            It’s not about competing with central banks. It’s about using tech to lower the barrier to entry for everyone else. Because the future of finance isn’t about who controls the money. It’s about who gets to own it. DivvyFi changes that by connecting stable, real-world assets to decentralized technology, lowering the barrier to entry for the rest of the world. See what Real World Assets you can own.
-          </p>
+          <p className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8'>
+  It’s not about competing with central banks. It’s about using tech to lower the barrier to entry for everyone else. Because the future of finance isn’t about who controls the money. It’s about who gets to own it. DivvyFi changes that by connecting stable, real-world assets to decentralized technology, lowering the barrier to entry for the rest of the world. See what real world assets you can own.
+</p>
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-20'>
           {loading
