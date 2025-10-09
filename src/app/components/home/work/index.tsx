@@ -30,20 +30,23 @@ const Work = () => {
       <div className='container'>
         <div className='text-center mb-14'>
           <h2 className='mb-3 capitalize'>Why it Works</h2>
-          <p className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8'>
+         <p className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8'>
   It’s not about competing with central banks. It’s about using tech to lower the barrier to entry for everyone else. Because the future of finance isn’t about who controls the money. It’s about who gets to own it. DivvyFi changes that by connecting stable, real-world assets to decentralized technology, lowering the barrier to entry for the rest of the world. See what real world assets you can own.
 </p>
-      <div className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 space-y-4'>
-  <p>
-    🔹 <strong>Lower barriers to ownership:</strong> Blockchain technology makes access to real assets — homes, businesses, and income streams — simple, secure, and global.
-  </p>
-  <p>
-    🔹 <strong>Own what you believe in:</strong> Every token is backed by something real, not speculation. Real-world value, real income, real impact.
-  </p>
-  <p>
-    🔹 <strong>Your ownership on your terms:</strong> Keep or transfer your ownership whenever you choose. DeFi liquidity pools give you flexibility traditional assets never could.
-  </p>
-     </div>
+
+<div className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 mt-8'>
+  <ul className='list-disc list-inside space-y-2'>
+    <li>
+      <strong>Lower barriers to ownership:</strong> Blockchain technology makes access to real assets — homes, businesses, and income streams — simple, secure, and global.
+    </li>
+    <li>
+      <strong>Own what you believe in:</strong> Every token is backed by something real, not speculation. Real-world value, real income, real impact.
+    </li>
+    <li>
+      <strong>Your ownership on your terms:</strong> Keep or transfer your ownership whenever you choose. DeFi liquidity pools give you flexibility traditional assets never could.
+    </li>
+  </ul>
+</div> 
       </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-20'>
           {loading
