@@ -10,5 +10,3 @@ The term DivvyFi is a fusion of two ideas:
 
 “Fi” = shorthand for finance, fintech, or financial innovation.
 Think Robinhood meets Airbnb for real assets fractional ownership. DivvyFi helps groups of trusted investors (close friends, family, and business partners)  pool capital, buy RWA (Real World Assets), and build wealth together.
-
-Deployment instructions (GitHub Pages + Cloudflare flow)
