@@ -1,7 +1,0 @@
-export const metadata = {
-  title: "DivvyFi",
-  description: "Real Ownership. Real World Assets. Reinvented.",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
