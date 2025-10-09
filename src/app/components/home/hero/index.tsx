@@ -31,7 +31,7 @@ const Banner = () => {
         letterSpacing: '-0.015em',
       }}
     >
-      <span className="block">Real World Assets.</span>
+      <span className="block">Real Assets.</span>
       <span className="block text-blue-600">Real Ownership.</span>
     </h1>
                 <p className='text-white font-normal mb-10 max-w-[90%] lg:text-start text-center lg:mx-0 mx-auto'>
