@@ -43,7 +43,8 @@ const Work = () => {
   <p>
     🔹 <strong>Your ownership on your terms:</strong> Keep or transfer your ownership whenever you choose. DeFi liquidity pools give you flexibility traditional assets never could.
   </p>
-        </div>
+     </div>
+      </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-20'>
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <WorkSkeleton key={i} />)
