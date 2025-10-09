@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    appDir: true, // ensures Next knows you’re using the app router
+  },
 };
 
 module.exports = nextConfig;
