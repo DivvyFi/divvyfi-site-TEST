@@ -1,4 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import nextConfig from './next.config.js';
 
-export default nextConfig;
+const config = {
+  ...nextConfig,
+  srcDir: 'src', // Tell Next to use /src as the base
+};
+
+export default config;
+
