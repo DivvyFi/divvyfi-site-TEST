@@ -34,10 +34,10 @@ const Features = () => {
               FEATURES
             </p>
             <h2 className='font-semibold mb-6 text-center max-w-2xl mx-auto sm:leading-14 capitalize'>
-              The Most Trusted Platform for Digital Currency
+              Your assets work as hard as you do.
             </h2>
             <p className='lg:text-lg font-normal text-lightpurple text-center max-w-2xl mx-auto '>
-              Discover powerful tools designed to help you securely buy, sell, and manage your crypto assets — trusted by traders, investors, and businesses worldwide.
+              Your assets don’t just sit, they work for you. Each fraction you own earns its share of rental income, cash flow, or asset appreciation distributed automatically, on-chain, and accessible 24/7. Because when ownership is digital and decentralized, your wealth never has to sit still.
             </p>
           </div>
           {/* Column-2 */}
