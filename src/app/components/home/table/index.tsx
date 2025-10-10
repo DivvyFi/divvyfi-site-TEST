@@ -1,122 +1,114 @@
-import Image from 'next/image'
+'use client'
 
-interface table {
+import { useEffect, useState } from 'react'
+
+type Table = {
   index: number
   name: string
+  imgSrc: string
   price: number
   change: number
   cap: number
   action: string
-  imgSrc: string
 }
 
-const tableData: table[] = [
-  {
-    index: 1,
-    name: 'Bitcoin(BTC)',
-    imgSrc: '/images/table/bitcoin.svg',
-    price: 16458.23,
-    change: 3.96,
-    cap: 16828.25,
-    action: 'Buy',
-  },
-  {
-    index: 2,
-    name: 'Ethereum(ETH)',
-    imgSrc: '/images/table/cryptoone.svg',
-    price: 16458.23,
-    change: 3.96,
-    cap: 16828.8,
-    action: 'Buy',
-  },
-  {
-    index: 3,
-    name: 'Tether(USDT)',
-    imgSrc: '/images/table/cryptothree.svg',
-    price: 16458.23,
-    change: -3.96,
-    cap: 16828.3,
-    action: 'Sell',
-  },
-  {
-    index: 4,
-    name: 'Binance Coin(BNB)',
-    imgSrc: '/images/table/cryptotwo.svg',
-    price: 16458.23,
-    change: -3.96,
-    cap: 16828.42,
-    action: 'Sell',
-  },
-]
+const StablecoinTable = () => {
+  const [tableData, setTableData] = useState<Table[]>([])
+  const [lastUpdated, setLastUpdated] = useState<string>('')
 
-const Table = () => {
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&category=stablecoins&order=market_cap_desc&per_page=5&page=1'
+      )
+      const data = await res.json()
+
+      const formatted = data.map((coin: any, i: number) => ({
+        index: i + 1,
+        name: `${coin.name} (${coin.symbol.toUpperCase()})`,
+        imgSrc: coin.image,
+        price: coin.current_price,
+        change: coin.price_change_percentage_24h,
+        cap: coin.market_cap,
+        action: coin.price_change_percentage_24h >= 0 ? 'Buy' : 'Sell',
+      }))
+
+      setTableData(formatted)
+      setLastUpdated(new Date().toLocaleTimeString()) // update timestamp
+    } catch (error) {
+      console.error('Error fetching stablecoin data:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData() // Initial fetch
+    const interval = setInterval(fetchData, 30000) // Auto-refresh every 30 seconds
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <section id='exchange-section' className='scroll-mt-20'>
-      <div className='container'>
-        <div className='rounded-2xl bg-tablebg p-8 relative z-10 overflow-hidden'>
-          <p className='text-white/80 text-2xl'>Market Trend Live Stream</p>
-          <div className='overflow-x-scroll lg:overflow-auto'>
-            <table className='table-auto w-full mt-10 border border-border'>
-              <thead>
-                <tr className='text-white bg-border rounded-2xl'>
-                  <th className='px-4 py-4 font-normal rounded-s-lg'>#</th>
-                  <th className='px-4 py-4 text-start font-normal'>NAME</th>
-                  <th className='px-4 py-4 font-normal'>PRICE</th>
-                  <th className='px-4 py-4 font-normal'>CHANGE 24H</th>
-                  <th className='px-4 py-4 font-normal'>MARKET CAP</th>
-                  <th className='px-4 py-4 font-normal rounded-e-lg'>ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((items, i) => (
-                  <tr key={i} className='border-b border-b-border'>
-                    <td className='px-4 py-6 text-center text-white'>
-                      {items.index}
-                    </td>
-                    <td className='px-4 py-6 text-center text-white flex items-center justify-start gap-5 '>
-                      <Image
-                        src={items.imgSrc}
-                        alt={items.imgSrc}
-                        height={50}
-                        width={50}
-                      />
-                      {items.name}
-                    </td>
-                    <td className='px-4 py-6 text-center text-white'>
-                      ${items.price.toLocaleString()}
-                    </td>
-                    <td
-                      className={`px-4 py-6 text-center ${
-                        items.change < 0 ? 'text-primary' : 'text-secondary'
-                      } `}>
-                      {items.change}%
-                    </td>
-                    <td className='px-4 py-6 text-center text-white'>
-                      ${items.cap.toLocaleString()}
-                    </td>
-                    <td
-                      className={`px-4 py-6 text-center ${
-                        items.action === 'Buy'
-                          ? 'text-secondary'
-                          : 'text-primary'
-                      }`}>
-                      {items.action}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className="overflow-x-auto border rounded-lg p-6 bg-white/5 backdrop-blur-md text-white">
+      <h2 className="text-2xl font-semibold mb-4 text-center">
+        💹 Top 5 Stablecoins (Live Data)
+      </h2>
+
+      <table className="min-w-full text-sm text-left border-collapse">
+        <thead>
+          <tr className="border-b border-gray-700">
+            <th className="py-2 px-3">#</th>
+            <th className="py-2 px-3">Coin</th>
+            <th className="py-2 px-3">Price</th>
+            <th className="py-2 px-3">24h Change</th>
+            <th className="py-2 px-3">Market Cap</th>
+            <th className="py-2 px-3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((coin) => (
+            <tr
+              key={coin.index}
+              className="border-b border-gray-800 hover:bg-white/10 transition"
+            >
+              <td className="py-2 px-3 text-center">{coin.index}</td>
+              <td className="flex items-center gap-2 py-2 px-3">
+                <img
+                  src={coin.imgSrc}
+                  alt={coin.name}
+                  width={26}
+                  height={26}
+                  className="rounded-full"
+                />
+                {coin.name}
+              </td>
+              <td className="py-2 px-3">${coin.price.toLocaleString()}</td>
+              <td
+                className={`py-2 px-3 ${
+                  coin.change >= 0 ? 'text-green-400' : 'text-red-400'
+                }`}
+              >
+                {coin.change?.toFixed(2)}%
+              </td>
+              <td className="py-2 px-3">
+                ${coin.cap.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+              </td>
+              <td
+                className={`py-2 px-3 font-medium ${
+                  coin.action === 'Buy' ? 'text-green-400' : 'text-red-400'
+                }`}
+              >
+                {coin.action}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* 🕒 Timestamp */}
+      <div className="text-sm text-gray-400 text-center mt-4">
+        🕒 Last updated: {lastUpdated || 'Loading...'}
       </div>
-      <Image
-        src={'/images/table/Untitled.svg'}
-        alt='ellipse'
-        width={2460}
-        height={102}
-      />
-    </section>
+    </div>
   )
 }
 
-export default Table
+export default StablecoinTable
