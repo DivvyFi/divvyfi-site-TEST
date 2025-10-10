@@ -52,7 +52,7 @@ const StablecoinTable = () => {
       <div className="container mx-auto px-4">
         <div className="rounded-2xl bg-[#0B0F19]/70 backdrop-blur-lg p-8 border border-gray-700">
           <h2 className="text-2xl text-white font-semibold mb-4 text-center">
-            💹 Top 5 Stablecoins (Live Data)
+            Real Asset Backed Stablecoins
           </h2>
 
           <div className="overflow-x-auto">
