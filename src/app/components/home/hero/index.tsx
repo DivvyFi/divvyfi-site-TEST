@@ -46,14 +46,15 @@ const Banner = () => {
                   </button>
                 </div>
               </div>
-              <div className='lg:col-span-5 lg:-m-48 -m-20 overflow-hidden'>
-                <Image
-                  src='/images/banner/banner.png'
-                  alt='nothing'
-                  width={1013}
-                  height={760}
-                />
-              </div>
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+        <Image
+    src="/images/banner/banner.png"
+    alt="DivvyFi banner"
+    width={1060}
+    height={760}
+    className="block object-contain mx-auto lg:mx-0 lg:-mt-10"
+        />
+        </div>
             </div>
           </div>
         </div>
