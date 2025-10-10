@@ -16,13 +16,11 @@ const Trade = () => {
           </div>
           <div className='flex flex-col gap-7'>
             <h2 className='font-semibold text-center sm:text-start max-w-96 leading-14'>
-              Trade Anytime, Anywhere
+              Own Something. Anywhere.
             </h2>
             <p className='lg:text-lg font-normal text-lightblue text-center sm:text-start'>
-              Access your crypto portfolio on the go with our secure,
-              mobile-friendly platform. Whether you're at home or on the move,
-              you can buy, sell, and manage assets 24/7 — no limits, no
-              downtime.
+              DivvyFi lets you co-own high-value income producing assets such as: planes, yachts, cars, and more using stablecoins and blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income-generating.
+              You earn from what you co-own and trade or exit whenever you choose. Real ownership, real rewards, no middlemen. Because access shouldn’t be reserved for the few  it should be shared by the many.
             </p>
             <div className='flex justify-between'>
               <Image
