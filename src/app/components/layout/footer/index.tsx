@@ -106,17 +106,16 @@ const Footer = () => {
         </div>
       </div>
       <div className='py-8 px-4 border-t border-t-lightblue'>
-        <p className='text-center text-white'>
-          @2025 - All Rights Reserved by{' '}
-          <Link
-            href='https://getnextjstemplates.com/'
-            target='_blank'
-            className='hover:text-primary'>
-            {' '}
-            GetNextJs Templates.com
-          </Link>
-        </p>
-      </div>
+  <p className='text-center text-white'>
+    ©{new Date().getFullYear()} - All Rights Reserved by{' '}
+    <Link
+      href='https://www.divvyfi.com'
+      target='_blank'
+      className='hover:text-primary'>
+      DivvyFi.com
+    </Link>
+  </p>
+</div>
     </footer>
   )
 }
