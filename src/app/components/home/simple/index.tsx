@@ -6,11 +6,11 @@ const Simple = () => {
       <div className=''>
         <div className='container relative z-10'>
           <div className='max-w-2xl mx-auto'>
-            <h2 className='text-center font-semibold mb-6 sm:leading-16 capitalize'>
-              A Simple, Secure Way to Buy and Sell Cryptocurrency
+            <h2 className='text-center font-semibold mb-6 sm:leading-16'>
+              You’re not speculating. You’re earning income.
             </h2>
             <p className='text-center text-lightpurple text-lg font-normal mb-8'>
-              Buy, sell, and manage digital assets with confidence on a platform built for speed, security, and simplicity — whether you're a beginner or a seasoned trader.
+              Earn passive income from real estate, businesses, and more all powered by blockchain. Every tokenized asset on the platform, whether real estate, a business, or a piece of equipment  is designed to generate real yield from real-world activity.
             </p>
           </div>
           <div className='flex justify-center '>
