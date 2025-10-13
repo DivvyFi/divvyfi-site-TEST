@@ -31,15 +31,15 @@ const Work = () => {
       <div className='bg-banner-image absolute w-full h-full right-auto blur-390' />
       <div className='container'>
         <div className='text-center mb-14'>
-          <h2 className='mb-3 capitalize'>Why it Works</h2>
+          <h2 className='mb-6 capitalize'>Why it Works</h2>
 
           <p className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8'>
             It’s not about competing with central banks. It’s about using tech to lower the barrier to entry for everyone else. Because the future of finance isn’t about who controls the money. It’s about who gets to own it. DivvyFi changes that by connecting stable, real-world assets to decentralized technology, lowering the barrier to entry for the rest of the world. See what real world assets you can own.
           </p>
 
           {/* ✅ Added bullet section here, below the main paragraph */}
-          <div className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 mt-8'>
-            <ul className='list-disc list-inside space-y-2'>
+          <div className='text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 mt-8 text-left'>
+            <ul className='list-disc list-inside space-y-4'>
               <li>
                 <strong>Lower barriers to ownership:</strong> Blockchain technology makes access to real assets — homes, businesses, and income streams — simple, secure, and global.
               </li>
