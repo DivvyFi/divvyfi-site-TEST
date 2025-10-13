@@ -37,12 +37,16 @@ const Footer = () => {
               src={'/images/logo/logo-original-header.svg'}
               alt='DivvyFi_Logo'
             />
-            <p className='text-white/60 text-sm font-normal max-w-96 leading-7 mb-7'>
-              {' '}
-              DivvyFi is a financial technology platform developing tools for tokenized ownership and digital asset management. DivvyFi is not a bank, broker-dealer, investment adviser, or exchange, and does not provide investment, legal, or tax advice.
-Any references to “ownership,” “shares,” “tokens,” or “assets” on this site are for illustrative or educational purposes only and do not represent an offer to sell or a solicitation of an offer to buy any security or digital asset in any jurisdiction.
-All investments involve risk, including potential loss of principal. Users are responsible for complying with applicable laws and regulations in their jurisdiction before participating in any tokenized asset offering.
-            </p>
+            <p className="text-white/60 text-sm font-normal max-w-96 leading-7 mb-7">
+  DivvyFi is a financial technology platform developing tools for tokenized ownership and digital asset management. 
+  DivvyFi is not a bank, broker-dealer, investment adviser, or exchange, and does not provide investment, legal, or tax advice.
+  <br /><br />
+  Any references to “ownership,” “shares,” “tokens,” or “assets” on this site are for illustrative or educational purposes only 
+  and do not represent an offer to sell or a solicitation of an offer to buy any security or digital asset in any jurisdiction.
+  <br /><br />
+  All investments involve risk, including potential loss of principal. Users are responsible for complying with applicable laws 
+  and regulations in their jurisdiction before participating in any tokenized asset offering.
+</p>
             <div className='flex gap-4'>
               {sociallink.map((items, i) => (
                 <Link href={items.href} key={i}>
