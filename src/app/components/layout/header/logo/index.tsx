@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
   return (
     <Link href="/" style={{ display: "inline-block" }}>
       <Image
-        src="/images/logo/divvyfi-logo.png"   // 👈 updated path
+        src="/images/logo/logo-original-header.svg"   // 👈 updated path
         alt="DivvyFi Logo"
         width={125}
         height={50}
