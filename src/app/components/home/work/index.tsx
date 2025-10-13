@@ -98,4 +98,4 @@ const Work = () => {
   )
 }
 
-export default WorkDebug
+export default Work
