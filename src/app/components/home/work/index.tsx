@@ -56,58 +56,16 @@ const Work = () => {
         </div>
 
         {/* ✅ Cards Section */}
+        
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 mt-12'>
-          {loading
-            ? Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-64 w-full bg-gray-800 animate-pulse rounded-3xl flex items-center justify-center text-gray-400 shadow-lg"
-                >
-                  Loading...
-                </div>
-              ))
-            : workdata?.map((items, i) => (
-                <div key={i} className='relative group rounded-3xl overflow-hidden'>
-                  {/* Card Base */}
-                  <div className='bg-gray-900 border border-gray-700 p-10 rounded-3xl shadow-xl group-hover:shadow-yellow-500/50 transition-all duration-300 transform group-hover:scale-105'>
-                    
-                    {/* Floating Icon */}
-                    <div className='rounded-full flex justify-center absolute -top-12 left-1/2 transform -translate-x-1/2 p-6 bg-gradient-to-r from-yellow-500 to-yellow-400 shadow-lg group-hover:shadow-yellow-400/80 transition-shadow duration-300'>
-                      <Image
-                        src={items.imgSrc}
-                        alt={items.heading}
-                        width={48}
-                        height={48}
-                      />
-                    </div>
+  {[1,2,3].map(i => (
+    <div key={i} className='bg-gray-900 text-white p-10 rounded-3xl shadow-xl'>
+      <p className='text-2xl'>Card {i}</p>
+      <p className='text-gray-300 mt-2'>Description</p>
+    </div>
+  ))}
+</div>
 
-                    {/* Decorative Arrow */}
-                    <div className='flex justify-center mt-8'>
-                      <Image
-                        src='/images/icons/bg-arrow.svg'
-                        alt='arrow-bg'
-                        width={90}
-                        height={35}
-                        className='opacity-70 group-hover:opacity-100 transition-opacity duration-300'
-                      />
-                    </div>
-
-                    {/* Title */}
-                    <p className='text-2xl md:text-3xl text-white font-semibold text-center mt-10 capitalize'>
-                      {items.heading}
-                    </p>
-
-                    {/* Description */}
-                    <p className='text-base md:text-lg text-gray-300 text-center mt-4 overflow-hidden line-clamp-3 group-hover:h-auto group-hover:line-clamp-none transition-all duration-300'>
-                      {items.subheading}
-                    </p>
-                  </div>
-
-                  {/* Animated Gradient Overlay */}
-                  <div className='absolute inset-0 pointer-events-none bg-gradient-to-r from-yellow-400/10 via-yellow-500/20 to-yellow-400/10 opacity-0 group-hover:opacity-100 animate-shimmer'></div>
-                </div>
-              ))}
-        </div>
       </div>
     </section>
   )
