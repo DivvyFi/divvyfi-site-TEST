@@ -53,52 +53,57 @@ const Work = () => {
           </div>
         </div>
 
-        
-        <div className="bg-green-500 h-20 w-full">TEST</div>
-
 
         {/* ✅ Cards Section */}
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-5 mt-10'>
-          {loading
-            ? Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="h-64 w-full bg-gray-400 animate-pulse rounded-2xl flex items-center justify-center">
-                  Loading...
-                </div>
-              ))
-            : workdata?.map((items, i) => (
-                <div
-                  key={i}
-                  className='bg-red-500 border border-black group p-8 relative rounded-2xl hover:scale-105 duration-300'
-                >
-                  <div className='rounded-full flex justify-center absolute -top-10 left-1/2 transform -translate-x-1/2 p-6 bg-yellow-400'>
-                    <Image
-                      src={items.imgSrc}
-                      alt={items.heading}
-                      width={44}
-                      height={44}
-                    />
-                  </div>
+      {loading
+        ? Array.from({ length: 3 }).map((_, i) => (
+            <div
+              key={i}
+              className="h-64 w-full bg-gray-800 animate-pulse rounded-2xl flex items-center justify-center text-gray-400"
+            >
+              Loading...
+            </div>
+          ))
+        : workdata?.map((items, i) => (
+            <div
+              key={i}
+              className='bg-gray-900 border border-gray-700 group p-8 relative rounded-2xl hover:border-yellow-500 hover:scale-105 transition-transform duration-300'
+            >
+              {/* Floating Icon */}
+              <div className='rounded-full flex justify-center absolute -top-10 left-1/2 transform -translate-x-1/2 p-6 bg-gradient-to-r from-yellow-500 to-yellow-400'>
+                <Image
+                  src={items.imgSrc}
+                  alt={items.heading}
+                  width={44}
+                  height={44}
+                />
+              </div>
 
-                  <div className='flex justify-center mt-6'>
-                    <Image
-                      src='/images/icons/bg-arrow.svg'
-                      alt='arrow-bg'
-                      width={85}
-                      height={35}
-                    />
-                  </div>
+              {/* Decorative Arrow */}
+              <div className='flex justify-center mt-6'>
+                <Image
+                  src='/images/icons/bg-arrow.svg'
+                  alt='arrow-bg'
+                  width={85}
+                  height={35}
+                />
+              </div>
 
-                  <p className='text-2xl text-white font-semibold text-center mt-8 capitalize'>
-                    {items.heading}
-                  </p>
-                  <p className='text-base text-white text-center mt-2'>
-                    {items.subheading}
-                  </p>
-                </div>
-              ))}
-        </div>
-      </div>
-    </section>
+              {/* Title */}
+              <p className='text-2xl text-white font-semibold text-center mt-8 capitalize'>
+                {items.heading}
+              </p>
+
+              {/* Description */}
+              <p className='text-base text-gray-300 text-center mt-2 overflow-hidden line-clamp-3 group-hover:h-auto group-hover:line-clamp-none transition-all duration-300'>
+                {items.subheading}
+              </p>
+            </div>
+          ))}
+    </div>
+  </div>
+</section>
   )
 }
 
