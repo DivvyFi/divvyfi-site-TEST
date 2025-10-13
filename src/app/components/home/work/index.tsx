@@ -54,19 +54,22 @@ const Work = () => {
         </div>
 
         {/* ✅ Cards Section */}
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-20'>
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-5 mt-10'>
           {loading
-            ? Array.from({ length: 3 }).map((_, i) => <WorkSkeleton key={i} />)
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="h-64 w-full bg-gray-400 animate-pulse rounded-2xl flex items-center justify-center">
+                  Loading...
+                </div>
+              ))
             : workdata?.map((items, i) => (
                 <div
                   key={i}
-                  className='bg-darkmode border border-darkmode group hover:border-primary hover:scale-105 duration-300 p-8 relative rounded-2xl hover:mb-5'
+                  className='bg-red-500 border border-black group p-8 relative rounded-2xl hover:scale-105 duration-300'
                 >
-                  {/* Fixed invalid class: replaced left-40% with correct Tailwind centering */}
-                  <div className='rounded-full flex justify-center absolute -top-10 left-1/2 transform -translate-x-1/2 p-6 bg-gradient-to-r from-primary to-secondary'>
+                  <div className='rounded-full flex justify-center absolute -top-10 left-1/2 transform -translate-x-1/2 p-6 bg-yellow-400'>
                     <Image
                       src={items.imgSrc}
-                      alt={items.imgSrc}
+                      alt={items.heading}
                       width={44}
                       height={44}
                     />
@@ -81,10 +84,10 @@ const Work = () => {
                     />
                   </div>
 
-                  <p className='text-2xl text-white/80 font-semibold text-center mt-8 capitalize'>
+                  <p className='text-2xl text-white font-semibold text-center mt-8 capitalize'>
                     {items.heading}
                   </p>
-                  <p className='text-base font-normal text-white/60 text-center mt-2 overflow-hidden line-clamp-3 group-hover:h-auto group-hover:line-clamp-none transition-all duration-300'>
+                  <p className='text-base text-white text-center mt-2'>
                     {items.subheading}
                   </p>
                 </div>
@@ -95,4 +98,4 @@ const Work = () => {
   )
 }
 
-export default Work
+export default WorkDebug
