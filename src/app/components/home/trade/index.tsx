@@ -24,8 +24,8 @@ const Trade = () => {
             </p>
             <div className='flex justify-between'>
               <Image
-                src={'/images/trade/mac.svg'}
-                alt='macOS-image'
+                src={'/images/trade/security icon.svg'}
+                alt='security'
                 width={61}
                 height={105}
               />
