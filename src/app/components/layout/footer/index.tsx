@@ -34,8 +34,8 @@ const Footer = () => {
           <div className='lg:col-span-6 sm:col-span-2'>
             <img
               className='block h-12 w-20px mb-4'
-              src={'/images/logo/logo.svg'}
-              alt='Crypto-Logo'
+              src={'/images/logo/logo-original-header.svg'}
+              alt='DivvyFi_Logo'
             />
             <p className='text-white/60 text-sm font-normal max-w-96 leading-7 mb-7'>
               {' '}
