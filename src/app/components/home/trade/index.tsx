@@ -24,29 +24,29 @@ const Trade = () => {
             </p>
             <div className='flex justify-between'>
               <Image
-                src={'/images/trade/security icon.svg'}
+                src={'/images/trade/security-icon.svg'}
                 alt='security'
                 width={61}
                 height={105}
               />
               <div className='verticalLine'></div>
               <Image
-                src={'/images/trade/appstore.svg'}
-                alt='appstore-image'
+                src={'/images/trade/community-icon.svg'}
+                alt='community'
                 width={80}
                 height={105}
               />
               <div className='verticalLine'></div>
               <Image
-                src={'/images/trade/windows.svg'}
-                alt='windows-image'
+                src={'/images/trade/governance-icon.svg'}
+                alt='governance'
                 width={80}
                 height={105}
               />
               <div className='verticalLine'></div>
               <Image
-                src={'/images/trade/android.svg'}
-                alt='android-image'
+                src={'/images/trade/yield-icon.svg'}
+                alt='yield'
                 width={71}
                 height={105}
               />
