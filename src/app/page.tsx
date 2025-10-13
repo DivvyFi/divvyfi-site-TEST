@@ -10,7 +10,7 @@ import Faq from "./components/home/faq";
 import ContactForm from "./components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Shared Assets, Reinvented Ownership",
+  title: "Real Assets, Reinvented Ownership",
 };
 
 export default function Home() {
