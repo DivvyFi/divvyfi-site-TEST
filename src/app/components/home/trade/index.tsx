@@ -16,11 +16,10 @@ const Trade = () => {
           </div>
           <div className='flex flex-col gap-7'>
             <h2 className='font-semibold text-center sm:text-start max-w-96 leading-14'>
-              Own Something. Anywhere.
+              Joint Ownership = Shared Income.
             </h2>
             <p className='lg:text-lg font-normal text-lightblue text-center sm:text-start'>
-              DivvyFi lets you co-own high-value income producing assets such as: planes, yachts, cars, and more using stablecoins and blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income-generating.
-              You earn from what you co-own and trade or exit whenever you choose. Real ownership, real rewards, no middlemen. Because access shouldn’t be reserved for the few  it should be shared by the many.
+              High value income producing assets shouldn’t be reserved for the few, it should be shared by the many. DivvyFi lets you co-own high value income producing assets such as: real estate, private businesses, luxury planes, yachts, cars using blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income-generating. You earn from what you co-own and trade or exit whenever you choose.
             </p>
             <div className='flex justify-between'>
               <Image
