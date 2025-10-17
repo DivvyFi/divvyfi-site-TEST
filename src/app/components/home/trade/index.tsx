@@ -19,7 +19,7 @@ const Trade = () => {
               Joint Ownership. Shared Income.
             </h2>
             <p className='lg:text-lg font-normal text-lightblue text-center sm:text-start'>
-              High value income producing assets shouldn’t be reserved for the few, it should be shared by the many. DivvyFi lets you co-own real estate, private businesses, luxury planes, yachts, and cars using blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income generating. You earn from what you co-own and trade or exit whenever you choose.
+              High value income producing assets shouldn’t be reserved for the few, it should be shared by the many. DivvyFi lets you co-own real assets using blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income generating. You earn from what you co-own and trade or exit whenever you choose.
             </p>
             <div className='flex justify-between'>
               <Image
