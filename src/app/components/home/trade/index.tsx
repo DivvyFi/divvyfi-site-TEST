@@ -42,5 +42,3 @@ const Trade = () => {
 }
 
 export default Trade
-
-export default Trade
