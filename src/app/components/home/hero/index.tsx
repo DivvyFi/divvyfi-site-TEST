@@ -52,7 +52,7 @@ const Banner = () => {
     alt="DivvyFi banner"
     width={1060}
     height={760}
-    className="block object-contain mx-auto lg:mx-0 lg:-mt-10"
+    className="max-w-[1060px] w-full h-auto object-contain"
             />
          </div>
             </div>
