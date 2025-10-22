@@ -46,17 +46,15 @@ const Banner = () => {
                   </button>
                 </div>
               </div>
-           <div className="lg:col-span-6 flex justify-center lg:justify-end w-full">
-  <Image
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <Image
     src="/images/banner/banner.png"
     alt="DivvyFi banner"
     width={1060}
     height={760}
-    sizes="(max-width: 1024px) 100vw, 50vw"
-    className="w-full h-auto object-contain mx-auto lg:mx-0 lg:-mt-10"
-    priority
-  />
-</div>
+    className="block object-contain mx-auto lg:mx-0 lg:-mt-10"
+            />
+         </div>
             </div>
           </div>
         </div>
