@@ -41,12 +41,6 @@ export default function Banner() {
                     <span className='hover:text-primary'>How It Works</span>
                   </button>
                 </div>
-                {/* How It Works points */}
-                <div className='mt-10 space-y-4 text-white max-w-lg mx-auto lg:mx-0'>
-                  <p>1. Create an account and verify your identity to get started securely.</p>
-                  <p>2. Browse real-world assets you can co-own — from vehicles to property and more.</p>
-                  <p>3. Earn real yield and manage your ownership all in one intuitive dashboard.</p>
-                </div>
               </div>
 
               {/* Right banner image */}
