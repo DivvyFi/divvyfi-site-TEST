@@ -35,13 +35,13 @@ const Work = () => {
             platform.
             </p>
           <p className='text-white font-normal mb-10 max-w-[90%] mx-auto text-center lg:text-left'>
-            1. Create an account and verify your identity to get started securely.
+            1. Create an account and verify your identity to get started securely. Start by linking your digital wallet and connecting with trusted partners. Once your funds are verified you’re all set to connect with the trusted partner network.
             </p>
           <p className='text-white font-normal mb-10 max-w-[90%] mx-auto text-center lg:text-left'>
-            2. Browse real-world assets you can co-own — from vehicles to property and more.
+            2. Browse real-world assets you can co-own + enjoy yourslef. Discover real world assets that your partners have or want to own together: vehicles, property, businesses, that fit yours and your partner(s) goals.
             </p>
           <p className='text-white font-normal mb-10 max-w-[90%] mx-auto text-center lg:text-left'>
-            3. Earn real yield and manage your ownership all in one intuitive dashboard.
+            3. Buy Tokenized Asset Shares and Earn Yield as it Grows. Co-own income producing assets and watch your assets earn yield while your diversified portfolio grows in value, all tracked right from your dashboard.
           </p>
         </div>
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-20'>
