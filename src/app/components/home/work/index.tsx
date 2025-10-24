@@ -71,13 +71,13 @@ const Work = () => {
         {/* Intro Text */}
         <div className='text-center mb-14'>
           <h2 className='mb-10 text-4xl font-semibold text-white capitalize'>
-            How to start
+            Start Owning
           </h2>
-          <p className='lg:text-lg font-normal mb-10 text-white max-w-3xl mx-auto'>
+          <p className='lg:text-lg font-normal mb-10 text-white max-w-4xl mx-auto'>
             Create an account, verify your identity, and start networking, buying, and co-owning real assets in just a few clicks — all on a secure, intuitive platform.
           </p>
 
-          <div className='space-y-6 text-white text-left max-w-2xl mx-auto'>
+          <div className='space-y-6 text-white text-left max-w-4xl mx-auto'>
             <p>
               <strong>1.</strong> Once your identity is verified, start connecting with trusted partners and link your digital wallet to verify funds.
             </p>
@@ -93,7 +93,7 @@ const Work = () => {
         {/* Membership Tiers */}
         <div className='my-16'>
           <h3 className='text-3xl font-semibold text-center mb-10 text-white'>
-            Memberships
+            Membership Tiers
           </h3>
 
           <div className='flex flex-col md:flex-row justify-center items-stretch gap-8'>
