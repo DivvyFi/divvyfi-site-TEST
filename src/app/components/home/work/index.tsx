@@ -30,7 +30,7 @@ const Work = () => {
       <div className='container'>
         <div className='text-center mb-14'>
           <h2 className='mb-3 capitalize'>How It Works</h2>
-          <p className='text-white font-normal mb-10 max-w-[90%] mx-auto text-center lg:text-left'>
+          <p className='lg:text-lg font-normal text-white text-center sm:text-start'>
             Getting started is simple. Create an account, verify your identity, and start networking, buying, owning, and using real assets in just a few clicks all on a secure and intuitive
             platform.
             </p>
