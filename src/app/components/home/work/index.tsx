@@ -6,44 +6,42 @@ import { WorkType } from '@/app/types/work'
 
 const tiers = [
   {
-    name: 'Community Insider',
-    entry: 'Open application',
+    name: 'The Insider',
+    entry: 'Open Access (Net worth: $0–100k)',
     benefits: [
-      'Educational content & guides',
-      'Visibility into upcoming assets',
-      'Community networking',
+      'Access to Real-World Asset (RWA) guides',
+      'Visibility into upcoming asset listings',
+      'DeFi community networking events',
       'Referral & loyalty incentives',
-      'Gamified investment experiences',
+      'Future investment opportunities',
     ],
-    color: 'bg-white text-[#2d6ade] border-2 border-[#2d6ade]'
+    color: 'bg-gradient-to-r from-[#bd24df] to-[#c0c0c0] text-white',
   },
   {
     name: 'Premier Investor',
-    entry: 'Accredited investor ($100k+)',
+    entry: 'Accredited Investor (Net worth: $100k+)',
     benefits: [
-      'Early access to curated assets',
-      'Virtual lounges & webinars',
+      'Early access to handpicked assets',
       'Due diligence & financial reports',
       'Private networking forums',
       'Quarterly market insights',
-      'Upgrade to Founders Circle',
+      'Virtual lounges & webinars',
     ],
-    color: 'bg-[#2d6ade] text-white'
+    color: 'bg-gradient-to-r from-[#bd24df] to-[#ffd700] text-white',
   },
   {
     name: 'Founders Circle',
-    entry: 'Invitation-only ($250k+)',
+    entry: 'Invitation-Only (Net worth: $250k+)',
     benefits: [
-      'First access to high-value assets',
+      'Prime access to high-value assets',
       'Personalized portfolio strategy',
-      'Ultra-exclusive events',
-      'Private boardroom & voting',
-      'Recognition badge on dashboard',
+      'Ultra-exclusive deals and events',
+      'Private boardroom & voting access',
       'Co-investment with top partners',
     ],
-    color: 'bg-gradient-to-r from-[#bd24df] to-[#2d6ade] text-white'
+    color: 'bg-gradient-to-r from-[#bd24df] to-[#000000] text-white',
   },
-];
+]
 
 const Work = () => {
   const [workdata, setWorkdata] = useState<WorkType[]>([])
@@ -68,33 +66,37 @@ const Work = () => {
   return (
     <section className='relative'>
       <div className='bg-banner-image absolute w-full h-full right-auto blur-390' />
+
       <div className='container'>
         {/* Intro Text */}
         <div className='text-center mb-14'>
-          <h2 className='mb-10 capitalize'>DivvyFi Club Member</h2>
-          <p className='lg:text-lg font-normal mb-10 text-white text-center sm:text-start'>
-            Getting started is simple. Create an account and verify your identity. Then you can start networking, buying, owning, and using real assets in just a few clicks all on a secure and intuitive platform.
+          <h2 className='mb-10 text-4xl font-semibold text-white capitalize'>Membership</h2>
+          <p className='lg:text-lg font-normal mb-10 text-white/80 max-w-3xl mx-auto'>
+            Create an account, verify your identity, and start networking, buying, and co-owning real assets in just a few clicks — all on a secure, intuitive platform.
           </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
-            1. Create an account and verify your identity to get started securely. Start by linking your digital wallet and connecting with trusted partners. Once your funds are verified you’re all set to connect with the trusted partner network.
-          </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
-            2. Browse real-world assets you can co-own + enjoy yourself. Discover real-world assets that your partners have or want to own together: vehicles, property, businesses, that fit yours and your partner(s) goals.
-          </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
-            3. Buy Tokenized Asset Shares and Earn Yield as it Grows. Co-own income-producing assets and watch your assets earn yield while your diversified portfolio grows in value, all tracked right from your dashboard.
-          </p>
+
+          <div className='space-y-6 text-white/80 text-left max-w-2xl mx-auto'>
+            <p><strong>1.</strong> Once your identity is verified, start connecting with trusted partners and link your digital wallet to verify funds.</p>
+            <p><strong>2.</strong> Discover real-world assets — from vehicles and property to businesses — that align with your shared goals.</p>
+            <p><strong>3.</strong> Co-own income-producing assets and track growth and yield directly from your DivvyFi dashboard.</p>
+          </div>
         </div>
 
-        {/* Membership Roadmap */}
-        <div className="my-16">
-          <h3 className="text-3xl font-bold text-center mb-10">Membership Roadmap</h3>
-          <div className="flex flex-col md:flex-row justify-center items-start gap-8">
+        {/* Membership Tiers */}
+        <div className='my-16'>
+          <h3 className='text-3xl font-semibold text-center mb-10 text-white'>
+            Choose Your Path
+          </h3>
+
+          <div className='flex flex-col md:flex-row justify-center items-stretch gap-8'>
             {tiers.map((tier, index) => (
-              <div key={index} className={`rounded-xl shadow-lg p-6 w-full md:w-80 flex flex-col ${tier.color}`}>
-                <h4 className="text-2xl font-semibold mb-2">{tier.name}</h4>
-                <p className="italic mb-4">{tier.entry}</p>
-                <ul className="list-disc list-inside space-y-1 flex-1">
+              <div
+                key={index}
+                className={`rounded-2xl shadow-lg p-6 w-full md:w-80 flex flex-col transition-transform hover:scale-105 ${tier.color}`}
+              >
+                <h4 className='text-2xl font-semibold mb-2 text-center'>{tier.name}</h4>
+                <p className='italic mb-4 text-center text-white/90'>{tier.entry}</p>
+                <ul className='list-disc list-inside space-y-1 text-white/90 text-sm flex-1'>
                   {tier.benefits.map((benefit, i) => (
                     <li key={i}>{benefit}</li>
                   ))}
@@ -102,8 +104,11 @@ const Work = () => {
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-lg italic text-gray-300">
-            Start as a Community Insider and upgrade through tiers to unlock exclusive deals and elite networking.
+
+          <p className='mt-8 text-center text-base italic text-gray-300 max-w-3xl mx-auto'>
+            DivvyFi will <strong>never</strong> collect payments or private data without your consent.  
+            Net worth verification is handled securely through trusted providers.  
+            Start as <em>“The Insider”</em> and unlock more benefits as you progress through the tiers.
           </p>
         </div>
 
@@ -114,18 +119,19 @@ const Work = () => {
             : workdata?.map((items, i) => (
                 <div
                   className='bg-darkmode border border-darkmode group hover:border-primary hover:scale-105 duration-300 p-8 relative rounded-2xl hover:mb-5'
-                  key={i}>
-                  <div className='rounded-full flex justify-center absolute -top-10 left-40% p-6 bg-linear-to-r from-primary to-secondary'>
+                  key={i}
+                >
+                  <div className='rounded-full flex justify-center absolute -top-10 left-[40%] p-6 bg-gradient-to-r from-primary to-secondary'>
                     <Image
                       src={items.imgSrc}
-                      alt={items.imgSrc}
+                      alt={items.heading || 'icon'}
                       width={44}
                       height={44}
                     />
                   </div>
-                  <div>
+                  <div className='flex justify-center'>
                     <Image
-                      src={'/images/icons/bg-arrow.svg'}
+                      src='/images/icons/bg-arrow.svg'
                       alt='arrow-bg'
                       width={85}
                       height={35}
