@@ -32,14 +32,13 @@ export default function ScrollToTop() {
   return (
     <div className='fixed bottom-8 right-8 z-999'>
       <div className='flex items-center gap-2.5'>
-        <Link
-          href={
-            'https://getnextjstemplates.com/products/crypto-free-nextjs-landing-page-template-with-tailwind-css-headless-ui'
-          }
-          target='_blank'
-          className='hidden lg:block bg-primary text-white hover:bg-primary/15 hover:text-primary text-sm font-medium px-4 py-3.5 leading-none rounded-lg text-nowrap'>
-          Download Now
-        </Link>
+<Link
+  href="mailto:info.divvyfi@gmail.com"
+  className="hidden lg:block bg-primary text-white hover:bg-primary/15 hover:text-primary text-sm font-medium px-4 py-3.5 leading-none rounded-lg text-nowrap"
+>
+  Help
+</Link>
+
         {isVisible && (
           <div
             onClick={scrollToTop}
