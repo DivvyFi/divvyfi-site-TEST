@@ -34,13 +34,13 @@ const Work = () => {
             Getting started is simple. Create an account and verify your identity. Then you can start networking, buying, owning, and using real assets in just a few clicks all on a secure and intuitive
             platform.
             </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-start'>
+          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
             1. Create an account and verify your identity to get started securely. Start by linking your digital wallet and connecting with trusted partners. Once your funds are verified you’re all set to connect with the trusted partner network.
             </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-start'>
+          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
             2. Browse real-world assets you can co-own + enjoy yourslef. Discover real world assets that your partners have or want to own together: vehicles, property, businesses, that fit yours and your partner(s) goals.
             </p>
-          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-start'>
+          <p className='lg:text-lg font-normal mb-7 text-white text-center sm:text-left'>
             3. Buy Tokenized Asset Shares and Earn Yield as it Grows. Co-own income producing assets and watch your assets earn yield while your diversified portfolio grows in value, all tracked right from your dashboard.
           </p>
         </div>
