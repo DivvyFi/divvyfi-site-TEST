@@ -29,7 +29,7 @@ const Work = () => {
       <div className='bg-banner-image absolute w-full h-full right-auto blur-390' />
       <div className='container'>
         <div className='text-center mb-14'>
-          <h2 className='mb-3 capitalize'>How It Works</h2>
+          <h2 className='mb-10 capitalize'>How It Works</h2>
           <p className='lg:text-lg font-normal mb-10 text-white text-center sm:text-start'>
             Getting started is simple. Create an account and verify your identity. Then you can start networking, buying, owning, and using real assets in just a few clicks all on a secure and intuitive
             platform.
