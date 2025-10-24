@@ -20,7 +20,7 @@ const Trade = () => {
             <h2 className='font-semibold text-center sm:text-start max-w-96 leading-14'>
               Joint Ownership. Shared Income.
             </h2>
-            <p className='lg:text-lg font-normal text-lightblue text-center sm:text-start'>
+            <p className='lg:text-lg font-normal text-white text-center sm:text-start'>
               High value income producing assets shouldn’t be reserved for the few, it should be shared by the many. DivvyFi lets you co-own real assets using blockchain-backed contracts. Each asset is securely tokenized, transparently managed, and income generating. You earn from what you co-own and trade or exit whenever you choose.
             </p>
 
