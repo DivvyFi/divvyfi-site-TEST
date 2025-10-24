@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import WorkSkeleton from '../../Skeleton/Work'
 import { WorkType } from '@/app/types/work'
+import { motion } from 'framer-motion'
 
 const tiers = [
   {
@@ -92,20 +93,20 @@ const Work = () => {
 
         {/* Membership Tiers */}
         <div className='my-16'>
-          <h3 className='text-3xl font-semibold text-center mb-10 text-white'>
+          <h3 className='text-3xl font-semibold text-center mb-10 text-white drop-shadow-[0_0_12px_rgba(189,36,223,0.8)]'>
             Membership Tiers
           </h3>
 
           <div className='flex flex-col md:flex-row justify-center items-stretch gap-8'>
             {tiers.map((tier, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`rounded-2xl shadow-lg p-6 w-full md:w-80 flex flex-col transition-transform hover:scale-105 ${tier.color} text-white`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className={`relative rounded-2xl shadow-lg p-6 w-full md:w-80 flex flex-col transition-all ${tier.color} text-white border border-white/20 hover:border-[#bd24df] hover:shadow-[0_0_25px_rgba(189,36,223,0.8)] hover:scale-105 backdrop-blur-md`}
               >
-                {/* Tier Title with Neon Glow */}
-                <h4
-                  className='text-2xl font-semibold mb-2 text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]'
-                >
+                <h4 className='text-2xl font-semibold mb-2 text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]'>
                   {tier.name}
                 </h4>
                 <p className='italic mb-4 text-center'>{tier.entry}</p>
@@ -114,13 +115,19 @@ const Work = () => {
                     <li key={i}>{benefit}</li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           <p className='mt-8 text-center text-base italic text-white max-w-3xl mx-auto'>
             DivvyFi currently <strong>does not have any membership fees</strong> and will <strong>never</strong> collect payments or private data without your consent.
-            Your net worth verification is handled securely through our trusted providers. For memberships or verification questions please reach out to our help desk at mailto:info.divvyfi@gmail.com 
+            Your net worth verification is handled securely through our trusted providers. For membership or verification questions, please reach out to our help desk at{' '}
+            <a
+              href='mailto:info.divvyfi@gmail.com'
+              className='underline hover:text-[#bd24df] transition-colors duration-200'
+            >
+              info.divvyfi@gmail.com
+            </a>.
           </p>
         </div>
 
