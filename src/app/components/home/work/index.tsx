@@ -119,9 +119,8 @@ const Work = () => {
           </div>
 
           <p className='mt-8 text-center text-base italic text-white max-w-3xl mx-auto'>
-            DivvyFi does not have any membership fees and will <strong>never</strong> collect payments or private data without your consent.
-            Net worth verification is handled securely through trusted providers.
-            Start as <em>“The Insider”</em> and unlock more benefits as you progress through the tiers.
+            DivvyFi currently <strong>does not have any membership fees</strong> and will <strong>never</strong> collect payments or private data without your consent.
+            Your net worth verification is handled securely through our trusted providers. For memberships or verification questions please reach out to our help desk at mailto:info.divvyfi@gmail.com 
           </p>
         </div>
 
