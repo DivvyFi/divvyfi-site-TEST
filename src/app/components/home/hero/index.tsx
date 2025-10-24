@@ -50,7 +50,7 @@ export default function Banner() {
                   alt="DivvyFi banner"
                   width={1060}
                   height={760}
-                  className="block object-contain mx-auto lg:mx-0 lg:-mt-10"
+                  className='w-full lg:w-auto object-contain'
                 />
               </div>
             </div>
