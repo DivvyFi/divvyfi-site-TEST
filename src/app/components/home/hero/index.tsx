@@ -19,13 +19,13 @@ export default function Banner() {
               {/* Left text */}
               <div className='lg:col-span-7 mb-16'>
                 <h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight'>
-                Own What You Couldn’t Before.
+                Own What You Couldn’t Before
                 </h1>
                 {/*<h1 className='mb-5 lg:text-start text-center sm:leading-snug leading-tight'>
                   Real Assets, <br /> Divvy Up Ownership.
                 </h1>*/}
                 <p className='text-white font-normal mb-10 max-w-[90%] lg:text-start text-center lg:mx-0 mx-auto'>
-                We aren't just a fintech platform, we are the bridge between digital and real things you can touch. Co-own real-world assets with trusted partners and earn passive income powered by DeFi - Decentralized Finance, not traditional banks.
+                We aren't just a fintech platform, we are the bridge between digital and real things you can touch. Co-own real world assets with trusted partners and earn passive income powered by DeFi - Decentralized Finance, not traditional banks.
                 </p>
                 <div className='flex align-middle justify-center lg:justify-start gap-4'>
                   <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary rounded-xl'>

@@ -87,7 +87,7 @@ const Work = () => {
           </h2>
           <p className='font-normal text-left mb-10 text-white max-w-3xl mx-auto'>
           <span>
-    At DivvyFi, we’re not just helping you invest, we’re helping you join a community of innovators, dreamers, and doers who are turning digital possibilities into real-world wealth. Every connection you make, every asset you explore, every co-ownership you take part in brings you closer to financial freedom.
+    At DivvyFi, we’re not just helping you invest, we’re helping you join a community of innovators, dreamers, and doers who are turning digital stablecoins into real-world wealth. Every connection you make, every asset you explore, every co-ownership you take part in brings you closer to financial freedom.
           </span>
           <span className='block mt-4'>
     Own, share, and earn from real-world assets you never thought possible, from vehicles and property to thriving businesses without needing to navigate complex systems or endless paperwork. The journey is exciting, and the rewards are tangible. Join a community and start turning your digital wallet into tangible wealth today.
@@ -109,9 +109,11 @@ const Work = () => {
         {/* Membership Tiers */}
         <div className='my-16'>
           <h3 className='text-3xl font-semibold text-center mb-10 text-white drop-shadow-[0_0_12px_rgba(189,36,223,0.8)]'>
-            Membership Tiers
+            Membership
           </h3>
-
+          <p className='font-normal text-left mb-10 text-white max-w-3xl mx-auto'>
+          Joining our community is completely free. Connect with like minded investors and unlock the tools to grow from Insider to Founder and gain access to exclusive opportunities you never thought possible.
+           </p>
           <div className='flex flex-col md:flex-row justify-center items-stretch gap-8'>
             {tiers.map((tier, index) => (
               <Link key={index} href={tier.href || SIGNUP_URL}>
