@@ -1,26 +1,34 @@
 'use client'
+
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import WorkSkeleton from '../../Skeleton/Work'
 import { WorkType } from '@/app/types/work'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
+// Main fallback signup URL
+const SIGNUP_URL = '/signup'
+
+// Tier definitions with optional href and glow color
 const tiers = [
   {
     name: 'Insider',
-    entry: 'Open Access (Net worth: $0–100k)',
+    entry: 'Open Access ($0–100k)',
     benefits: [
-      'Access to Real-World Asset (RWA) guides',
       'Visibility into upcoming asset listings',
       'DeFi community networking events',
       'Referral & loyalty incentives',
       'Future investment opportunities',
+      'Access to Real-World Asset guides',
     ],
-    color: 'bg-gradient-to-r from-[#bd24df] to-[#c0c0c0]',
+    color: 'bg-gradient-to-b from-[#bd24df] to-[#2d6ade]',
+    glowColor: 'rgba(189,36,223,0.8)',
+    href: '/signup/insider',
   },
   {
     name: 'Investor',
-    entry: 'Accredited Investor (Net worth: $100k+)',
+    entry: 'Accredited Investor ($100k+)',
     benefits: [
       'Early access to handpicked assets',
       'Due diligence & financial reports',
@@ -28,11 +36,12 @@ const tiers = [
       'Quarterly market insights',
       'Virtual lounges & webinars',
     ],
-    color: 'bg-gradient-to-r from-[#bd24df] to-[#ffd700]',
+    color: 'bg-gradient-to-b from-[#bd24df] to-[#2d6ade]',
+    glowColor: 'rgba(189,36,223,0.8)',
   },
   {
     name: 'Founder',
-    entry: 'Invitation-Only (Net worth: $250k+)',
+    entry: 'Invitation Only ($250k+)',
     benefits: [
       'Prime access to high-value assets',
       'Personalized portfolio strategy',
@@ -40,7 +49,9 @@ const tiers = [
       'Private boardroom & voting access',
       'Co-investment with top partners',
     ],
-    color: 'bg-gradient-to-r from-[#bd24df] to-[#000000]',
+    color: 'bg-gradient-to-b from-[#bd24df] to-[#2d6ade]',
+    glowColor: 'rgba(189,36,223,0.8)',
+    href: '/signup/founder',
   },
 ]
 
@@ -72,21 +83,25 @@ const Work = () => {
         {/* Intro Text */}
         <div className='text-center mb-14'>
           <h2 className='mb-10 text-4xl font-semibold text-white capitalize'>
-            Start Owning
+            Join a Community
           </h2>
-          <p className='lg:text-lg font-normal mb-10 text-white max-w-4xl mx-auto'>
-            Create an account, verify your identity, and start networking, buying, and co-owning real assets in just a few clicks — all on a secure, intuitive platform.
+          <p className='font-normal text-left mb-10 text-white max-w-3xl mx-auto'>
+          <span>
+    At DivvyFi, we’re not just helping you invest, we’re helping you join a community of innovators, dreamers, and doers who are turning digital possibilities into real-world wealth. Every connection you make, every asset you explore, every co-ownership you take part in brings you closer to financial freedom.
+          </span>
+          <span className='block mt-4'>
+    Own, share, and earn from real-world assets you never thought possible, from vehicles and property to thriving businesses without needing to navigate complex systems or endless paperwork. The journey is exciting, and the rewards are tangible. Join a community and start turning your digital wallet into tangible wealth today.
+         </span>
           </p>
-
-          <div className='space-y-6 text-white text-left max-w-4xl mx-auto'>
+          <div className='space-y-6 text-white text-left max-w-3xl mx-auto'>
             <p>
-              <strong>1.</strong> Once your identity is verified, start connecting with trusted partners and link your digital wallet to verify funds.
+              <strong>Verify & Connect:</strong> Secure your account, link your wallet, and start networking with trusted partners.
             </p>
             <p>
-              <strong>2.</strong> Discover real-world assets — from vehicles and property to businesses — that align with your shared goals.
+              <strong>Discover & Invest:</strong> Find and in invest in property, or businesses that align with your partners shared goals.
             </p>
             <p>
-              <strong>3.</strong> Co-own income-producing assets and track growth and yield directly from your DivvyFi dashboard.
+              <strong>Co-own & Earn:</strong> Own income producing assets, share them and track their growth all from the dashboard.
             </p>
           </div>
         </div>
@@ -99,35 +114,40 @@ const Work = () => {
 
           <div className='flex flex-col md:flex-row justify-center items-stretch gap-8'>
             {tiers.map((tier, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className={`relative rounded-2xl shadow-lg p-6 w-full md:w-80 flex flex-col transition-all ${tier.color} text-white border border-white/20 hover:border-[#bd24df] hover:shadow-[0_0_25px_rgba(189,36,223,0.8)] hover:scale-105 backdrop-blur-md`}
-              >
-                <h4 className='text-2xl font-semibold mb-2 text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]'>
-                  {tier.name}
-                </h4>
-                <p className='italic mb-4 text-center'>{tier.entry}</p>
-                <ul className='list-disc list-inside space-y-1 text-sm flex-1'>
-                  {tier.benefits.map((benefit, i) => (
-                    <li key={i}>{benefit}</li>
-                  ))}
-                </ul>
-              </motion.div>
+              <Link key={index} href={tier.href || SIGNUP_URL}>
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  className={`relative rounded-2xl shadow-lg p-6 w-full md:w-80 flex flex-col transition-transform ${tier.color} text-white border border-white/20 backdrop-blur-md cursor-pointer`}
+                  style={{
+                    boxShadow: `0 0 10px transparent`,
+                    transition: 'all 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 25px 5px ${tier.glowColor}`
+                  }}
+                  onMouseLeave={(e) => {
+                    ;(e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 10px transparent`
+                  }}
+                >
+                  <h4 className='text-2xl font-semibold mb-2 text-center drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]'>
+                    {tier.name}
+                  </h4>
+                  <p className='italic mb-4 text-center'>{tier.entry}</p>
+                  <ul className='list-disc list-inside space-y-1 text-sm flex-1'>
+                    {tier.benefits.map((benefit, i) => (
+                      <li key={i}>{benefit}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </Link>
             ))}
           </div>
 
           <p className='mt-8 text-center text-base italic text-white max-w-3xl mx-auto'>
             DivvyFi currently <strong>does not have any membership fees</strong> and will <strong>never</strong> collect payments or private data without your consent.
-            Your net worth verification is handled securely through our trusted providers. For membership or verification questions, please reach out to our help desk at{' '}
-            <a
-              href='mailto:info.divvyfi@gmail.com'
-              className='underline hover:text-[#bd24df] transition-colors duration-200'
-            >
-              info.divvyfi@gmail.com
-            </a>.
+            Your net worth verification is handled securely through our trusted providers. For membership or verification questions, please reach out to our help.
           </p>
         </div>
 
