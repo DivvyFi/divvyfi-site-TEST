@@ -1,16 +1,8 @@
-# divvyfi-site
-
-“Fractional Finance Made Simple”
-
-DivvyFi is a financial technology company on a mission to create more inclusive, accessible, shared, and fairly distributed ownership of real assets that aren’t accessible through traditional finance. 
-
 The term DivvyFi is a fusion of two ideas:
 
 “Divvy” = to divide, share, or split something fairly (like splitting costs, profits, or investments).
 
 “Fi” = shorthand for finance, fintech, or financial innovation.
-Think Robinhood meets Airbnb for real assets fractional ownership. DivvyFi helps groups of trusted investors (close friends, family, and business partners)  pool capital, buy RWA (Real World Assets), and build wealth together.
-
 
 DivvyFi — Decentralized Real-World Asset Co-Ownership Platform
 
@@ -21,7 +13,7 @@ The system combines Web2 scalability with Web3 transparency, powered by tokenize
 
 ⸻
 
-🧱 Frontend Requirements
+Frontend Requirements
 
 Tech Stack
 	•	Framework: React + TypeScript
@@ -50,7 +42,7 @@ UI/UX Notes
 
 ⸻
 
-⚙️ Backend Requirements
+Backend Requirements
 
 Tech Stack
 	•	Runtime: Node.js
@@ -74,7 +66,7 @@ Backend Responsibilities
 
 ⸻
 
-⚡ Real-Time Layer
+Real-Time Layer
 
 Services
 	•	WebSockets / Socket.io:
@@ -89,7 +81,7 @@ Services
 
 ⸻
 
-🔗 Blockchain Integration
+Blockchain Integration
 
 Components
 	•	Smart Contracts: Tokenized co-ownership (ERC-721 or ERC-1155).
@@ -100,7 +92,7 @@ Components
 
 ⸻
 
-☁️ Hosting & Deployment
+Hosting & Deployment
 
 Infrastructure
 	•	Frontend: AWS EC2 (with GitHub CI/CD)
@@ -116,7 +108,7 @@ CI/CD Requirements
 
 ⸻
 
-🔐 Authentication & Security
+Authentication & Security
 	•	Web3Auth for wallet-based login (Metamask, WalletConnect).
 	•	Clerk for email/social sign-ins.
 	•	JWT session handling for hybrid auth.
@@ -126,7 +118,7 @@ CI/CD Requirements
 
 ⸻
 
-🧩 Optional Future Additions
+Optional Future Additions
 	•	DAO module for group governance on co-owned assets.
 	•	Chainlink Functions for verified real-world data feeds.
 	•	L2 integrations (e.g., Polygon or Arbitrum) for low-cost transactions.
