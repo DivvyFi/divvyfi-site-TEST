@@ -31,7 +31,7 @@ export default function InsiderSignup() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-semibold drop-shadow-[0_0_12px_rgba(189,36,223,0.8)]">
-          Become a DivvyFi Insider
+          Become an Insider
         </h1>
 
         <p className="text-gray-300 text-base mb-6">
