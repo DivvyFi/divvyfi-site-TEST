@@ -28,7 +28,7 @@
     "react-sparklines": "^1.7.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
     "nodemailer": "^6.9.4"
   },
   "devDependencies": {
