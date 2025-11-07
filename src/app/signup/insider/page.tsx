@@ -5,9 +5,9 @@ import { useState } from 'react'
 export default function InsiderSignup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<string | null>(null)
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('loading')
 
@@ -27,24 +27,25 @@ export default function InsiderSignup() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-6">
       <h1 className="text-3xl mb-6">Join the Insider List</h1>
+
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-sm">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your Name"
-          className="p-3 rounded bg-gray-800 border border-gray-700"
           required
+          className="p-3 rounded bg-gray-800 border border-gray-700"
         />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your Email"
-          className="p-3 rounded bg-gray-800 border border-gray-700"
           required
+          className="p-3 rounded bg-gray-800 border border-gray-700"
         />
         <button
           type="submit"
@@ -55,12 +56,8 @@ export default function InsiderSignup() {
         </button>
       </form>
 
-      {status === 'success' && (
-        <p className="mt-4 text-green-400">✅ Thank you! You’ve joined the Insider List.</p>
-      )}
-      {status === 'error' && (
-        <p className="mt-4 text-red-400">❌ Something went wrong. Please try again later.</p>
-      )}
+      {status === 'success' && <p className="mt-4 text-green-400">✅ Thank you! You’ve joined the Insider List.</p>}
+      {status === 'error' && <p className="mt-4 text-red-400">❌ Something went wrong. Please try again later.</p>}
     </div>
   )
 }
