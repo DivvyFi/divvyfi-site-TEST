@@ -8,38 +8,35 @@ export async function POST(req: Request) {
     const { name, email } = await req.json()
     console.log('🧾 [API] Parsed body:', { name, email })
 
-    // 🧱 Validate input
-    if (!email || !name) {
+    if (!name || !email) {
       console.error('❌ [API] Missing name or email')
       return NextResponse.json({ success: false, error: 'Missing name or email' }, { status: 400 })
     }
 
-    console.log('⚙️ [API] Creating transporter with Brevo SMTP...')
     const transporter = nodemailer.createTransport({
-      host: 'smtp-relay.brevo.com',
-      port: 587,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
       auth: {
-        user: process.env.SMTP_USER, // e.g. 9ab2a7001@smtp-brevo.com
-        pass: process.env.SMTP_PASS, // your Brevo SMTP key
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     })
 
-    console.log('🔍 [API] Verifying SMTP connection...')
     await transporter.verify()
-    console.log('✅ [API] SMTP connection verified successfully')
+    console.log('✅ [API] SMTP connection verified')
 
-    console.log('✉️ [API] Sending email to contact@divvyfi.com...')
     const info = await transporter.sendMail({
-      from: `"DivvyFi Insider" <${process.env.SMTP_USER}>`,
-      to: 'contact@divvyfi.com',
-      subject: '🚀 New DivvyFi Insider Signup',
+      from: `"DivvyFi Insider" <${process.env.SMTP_FROM}>`,
+      to: process.env.SMTP_FROM,
+      subject: `🚀 New Insider Signup: ${name}`,
       text: `New Insider joined the list!\n\nName: ${name}\nEmail: ${email}`,
+      html: `<p><b>Name:</b> ${name}</p><p><b>Email:</b> ${email}</p>`,
     })
 
     console.log('✅ [API] Email sent successfully:', info.messageId)
     return NextResponse.json({ success: true })
   } catch (err: any) {
-    console.error('❌ [API] Error in insider-signup route:', err)
+    console.error('❌ [API] Error sending email:', err)
     return NextResponse.json({ success: false, error: err.message }, { status: 500 })
   }
 }
