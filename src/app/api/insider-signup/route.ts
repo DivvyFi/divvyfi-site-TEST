@@ -1,36 +1,72 @@
-// src/app/api/insider-signup/route.ts
-import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+'use client'
 
-export async function POST(req: Request) {
-  try {
-    const { name, email } = await req.json()
+import { useState } from 'react'
 
-    // Create transporter for Brevo
-    const transporter = nodemailer.createTransport({
-      host: process.env.BREVO_HOST,
-      port: Number(process.env.BREVO_PORT),
-      secure: false, // use TLS
-      auth: {
-        user: process.env.BREVO_USER,
-        pass: process.env.BREVO_PASS,
-      },
-    })
+export default function InsiderSignup() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<string | null>(null)
 
-    // Send the email
-    const info = await transporter.sendMail({
-      from: `"DivvyFi Insider" <${process.env.BREVO_USER}>`,
-      to: 'contact@divvyfi.com',
-      subject: `New Insider Signup: ${name}`,
-      text: `New signup from ${name} (${email})`,
-      html: `<p><b>Name:</b> ${name}</p><p><b>Email:</b> ${email}</p>`,
-    })
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setStatus('loading')
 
-    console.log('✅ Brevo sendMail response:', info)
+    try {
+      const res = await fetch('/api/insider-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
+      })
 
-    return NextResponse.json({ success: true, message: 'Email sent successfully!' })
-  } catch (error: any) {
-    console.error('❌ Email send error:', error)
-    return NextResponse.json({ success: false, error: error.message })
+      const data = await res.json()
+
+      if (data.success) {
+        setStatus('success')
+      } else {
+        console.error('Server error:', data.error)
+        setStatus('error')
+      }
+    } catch (err) {
+      console.error('Network error:', err)
+      setStatus('error')
+    }
   }
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+      <h1 className="text-3xl mb-6">Join the Insider List</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-sm">
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your Name"
+          className="p-3 rounded bg-gray-800 border border-gray-700"
+          required
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your Email"
+          className="p-3 rounded bg-gray-800 border border-gray-700"
+          required
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="p-3 rounded bg-[#BD24DF] hover:bg-[#a91fcc] transition font-semibold"
+        >
+          {status === 'loading' ? 'Sending...' : 'Sign Up'}
+        </button>
+      </form>
+
+      {status === 'success' && (
+        <p className="mt-4 text-green-400">✅ Thank you! You’ve joined the Insider List.</p>
+      )}
+      {status === 'error' && (
+        <p className="mt-4 text-red-400">❌ Something went wrong. Please try again later.</p>
+      )}
+    </div>
+  )
 }
