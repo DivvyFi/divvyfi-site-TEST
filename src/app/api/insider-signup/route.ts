@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       from: `"DivvyFi Insider" <${process.env.SMTP_FROM}>`,
       to: process.env.SMTP_FROM,
       subject: `🚀 New Insider Signup: ${name}`,
-      text: `New Insider joined the list!\n\nName: ${name}\nEmail: ${email}`,
+      text: `New Insider joined!\nName: ${name}\nEmail: ${email}`,
       html: `<p><b>Name:</b> ${name}</p><p><b>Email:</b> ${email}</p>`,
     })
 
