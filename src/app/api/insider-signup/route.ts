@@ -1,62 +1,56 @@
-import { NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+// src/app/api/insider-signup/route.ts
+
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-  console.log('📩 [API] Insider signup endpoint hit')
-
   try {
-    const { name, email } = await req.json()
-    console.log('🧾 [API] Parsed body:', { name, email })
+    const { name, email } = await req.json();
 
     if (!name || !email) {
-      console.error('❌ [API] Missing name or email')
-      return NextResponse.json({ success: false, error: 'Missing name or email' }, { status: 400 })
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
-    // Create transporter
-    let transporter
-    try {
-      transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      })
-      console.log('🔧 [SMTP] Transporter created')
-    } catch (err) {
-      console.error('❌ [SMTP] Error creating transporter:', err)
-      return NextResponse.json({ success: false, error: 'Error creating SMTP transporter' }, { status: 500 })
-    }
-
-    // Verify connection
-    try {
-      await transporter.verify()
-      console.log('✅ [SMTP] SMTP connection verified')
-    } catch (err) {
-      console.error('❌ [SMTP] Verification failed:', err)
-      return NextResponse.json({ success: false, error: 'SMTP verification failed' }, { status: 500 })
-    }
+    // Brevo SMTP transport
+    const transporter = nodemailer.createTransport({
+      host: "smtp-relay.brevo.com",
+      port: 587,
+      auth: {
+        user: process.env.BREVO_SMTP_USER, // 9ab2a7001@smtp-brevo.com
+        pass: process.env.BREVO_SMTP_PASS, // your Brevo key
+      },
+    });
 
     // Send email
-    try {
-      const info = await transporter.sendMail({
-        from: `"DivvyFi Insider" <${process.env.SMTP_FROM}>`,
-        to: process.env.SMTP_FROM,
-        subject: `🚀 New Insider Signup: ${name}`,
-        text: `New Insider joined!\nName: ${name}\nEmail: ${email}`,
-        html: `<p><b>Name:</b> ${name}</p><p><b>Email:</b> ${email}</p>`,
-      })
-      console.log('📤 [SMTP] Email sent successfully:', info.messageId)
-      return NextResponse.json({ success: true })
-    } catch (err) {
-      console.error('❌ [SMTP] Sending email failed:', err)
-      return NextResponse.json({ success: false, error: 'Failed to send email' }, { status: 500 })
-    }
+    await transporter.sendMail({
+      from: '"DivvyFi" <contact@divvyfi.com>',
+      to: "info.divvyfi@gmail.com",
+      subject: "New Insider Signup",
+      text: `Name: ${name}\nEmail: ${email}`,
+    });
 
-  } catch (err: any) {
-    console.error('❌ [API] Unexpected error:', err)
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 })
+    console.log("✅ Email sent successfully:", name, email);
+
+    return NextResponse.json(
+      { message: "Signup successful" },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("❌ Email send error:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error", error: error.message },
+      { status: 500 }
+    );
   }
+}
+
+// Optional: Handle unsupported methods
+export async function GET() {
+  return NextResponse.json(
+    { message: "Method Not Allowed" },
+    { status: 405 }
+  );
 }
