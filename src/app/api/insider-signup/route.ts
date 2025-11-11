@@ -1,4 +1,3 @@
-// src/app/api/insider-signup/route.ts
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
@@ -15,6 +14,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Name and email are required' }, { status: 400 })
     }
 
+    // Nodemailer transporter using Brevo SMTP
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
       },
     })
 
+    // Send email to DivvyFi
     await transporter.sendMail({
       from: `"DivvyFi Insider" <${process.env.SMTP_USER}>`,
       to: 'contact@divvyfi.com',
@@ -36,10 +37,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, message: 'Signup email sent' })
   } catch (err: any) {
     console.error('Error sending insider signup email:', err)
-    return NextResponse.json({ error: 'Failed to send signup email', details: err.message }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Failed to send signup email', details: err.message },
+      { status: 500 }
+    )
   }
 }
 
+// Optional GET for health check
 export async function GET() {
   return NextResponse.json({ status: 'ok', message: 'Insider API live' })
 }
