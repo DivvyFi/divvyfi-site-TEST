@@ -1,104 +1,102 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
+import Logo from '@/app/components/layout/header/logo'
+import Link from 'next/link'
 
-export default function InsiderSignupPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
-  const [message, setMessage] = useState("");
+export default function InsiderSignup() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-    setMessage("");
+    e.preventDefault()
+    setLoading(true)
+    setMessage(null)
 
     try {
-      const res = await fetch("/api/insider-signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch('/api/insider-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email }),
-      });
+      })
 
-      const data = await res.json();
+      const data = await res.json()
 
-      if (res.ok) {
-        setStatus("success");
-        setMessage("Thanks for joining! You’ll get early access updates soon.");
-        setName("");
-        setEmail("");
-      } else {
-        setStatus("error");
-        setMessage(data.message || "Something went wrong. Please try again.");
+      if (!res.ok) {
+        throw new Error(data?.error || 'Something went wrong')
       }
-    } catch (error) {
-      console.error("❌ Network error:", error);
-      setStatus("error");
-      setMessage("Network error. Please try again later.");
+
+      setMessage({ type: 'success', text: '✅ You’re on the list! Welcome to DivvyFi Insider.' })
+      setName('')
+      setEmail('')
+    } catch (err: any) {
+      console.error('Signup error:', err)
+      setMessage({ type: 'error', text: err.message || 'Failed to submit. Try again.' })
+    } finally {
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-br from-black via-[#0b0015] to-[#240030] text-white relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute inset-0 -z-10 opacity-30">
-        <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-[#BD24DF] rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-[#7100A8] rounded-full blur-[160px]" />
-      </div>
+      <div className="max-w-md w-full text-center space-y-6">
+        <div className="mb-6 inline-block max-w-[160px]">
+          <Logo />
+        </div>
 
-      <h1 className="text-3xl font-bold mb-6 text-center drop-shadow-lg">
-        Join the Insider List
-      </h1>
-      <p className="text-center text-gray-300 max-w-md mb-8">
-        Get early access to private beta, fractional real-world assets, and exclusive rewards.
-      </p>
+        <h1 className="text-3xl md:text-4xl font-semibold drop-shadow-[0_0_12px_rgba(189,36,223,0.8)]">
+          Become an Insider
+        </h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col space-y-4 w-full max-w-md"
-      >
-        <input
-          type="text"
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="p-3 rounded-md bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#BD24DF]"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="p-3 rounded-md bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#BD24DF]"
-        />
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="bg-[#BD24DF] hover:bg-[#A020C9] text-white font-semibold py-3 px-6 rounded-md transition-all disabled:opacity-50"
-        >
-          {status === "loading" ? "Submitting..." : "Sign Up"}
-        </button>
-      </form>
-
-      {message && (
-        <p
-          className={`mt-6 text-sm ${
-            status === "success"
-              ? "text-green-400"
-              : status === "error"
-              ? "text-red-400"
-              : "text-gray-300"
-          }`}
-        >
-          {message}
+        <p className="text-gray-300 text-base mb-6">
+          Get early access to private beta, fractional real-world assets, and exclusive rewards.
         </p>
-      )}
+
+        {message && (
+          <div
+            className={`mb-4 text-base font-medium ${
+              message.type === 'success' ? 'text-green-400' : 'text-red-400'
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full rounded-md border border-white/20 bg-transparent px-5 py-3 text-base text-white placeholder:text-gray-400 focus:border-primary focus:ring-0 transition"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full rounded-md border border-white/20 bg-transparent px-5 py-3 text-base text-white placeholder:text-gray-400 focus:border-primary focus:ring-0 transition"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-md bg-primary px-5 py-3 text-lg font-medium text-white border border-primary hover:bg-transparent hover:text-primary transition duration-300"
+          >
+            {loading ? 'Submitting...' : 'Join the Insider List'}
+          </button>
+        </form>
+
+        <p className="text-sm text-gray-400 mt-8">
+          Already part of the community?
+          <Link href="/" className="pl-2 text-primary hover:underline">
+            Sign In
+          </Link>
+        </p>
+      </div>
     </div>
-  );
+  )
 }
