@@ -9,14 +9,14 @@ const font = Inter({ subsets: ['latin'] })
 
 // ✅ Add metadata at the top-level
 export const metadata = {
-  title: 'DivvyFi | Own Real Assets. Keep Your Crypto.',
+  title: 'DivvyFi | Own Real Assets. Grow Your Crypto.',
   description:
     'DivvyFi lets you co-own income-producing real assets like planes, yachts, and properties — powered by stablecoins and blockchain-backed contracts.',
   icons: {
     icon: '/favicon.ico', // ✅ Put favicon.ico in the /public folder
   },
   openGraph: {
-    title: 'DivvyFi | Own Real Assets. Keep Your Crypto.',
+    title: 'DivvyFi | Own Real Assets. Grow Your Crypto.',
     description:
       'Own and earn from tokenized real-world assets — secured by blockchain, not banks.',
     url: 'https://divvyfi.com',
