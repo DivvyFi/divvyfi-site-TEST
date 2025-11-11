@@ -1,43 +1,48 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Logo from '@/app/components/layout/header/logo'
-import Link from 'next/link'
+import { useState } from 'react';
+import Logo from '@/app/components/layout/header/logo';
+import Link from 'next/link';
 
 export default function InsiderSignup() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setMessage(null)
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
 
     try {
       const res = await fetch('/api/insider-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email }),
-      })
+      });
 
-      const data = await res.json()
-
-      if (!res.ok) {
-        throw new Error(data?.error || 'Something went wrong')
+      let data: any;
+      try {
+        data = await res.json(); // safely parse JSON
+      } catch {
+        throw new Error('Invalid server response');
       }
 
-      setMessage({ type: 'success', text: '✅ You’re on the list! Welcome to DivvyFi Insider.' })
-      setName('')
-      setEmail('')
+      if (!res.ok) {
+        throw new Error(data?.error || 'Something went wrong');
+      }
+
+      setMessage({ type: 'success', text: data.message });
+      setName('');
+      setEmail('');
     } catch (err: any) {
-      console.error('Signup error:', err)
-      setMessage({ type: 'error', text: err.message || 'Failed to submit. Try again.' })
+      console.error('Signup error:', err);
+      setMessage({ type: 'error', text: err.message || 'Failed to submit. Try again.' });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-br from-black via-[#0b0015] to-[#240030] text-white relative overflow-hidden">
@@ -98,5 +103,5 @@ export default function InsiderSignup() {
         </p>
       </div>
     </div>
-  )
+  );
 }
