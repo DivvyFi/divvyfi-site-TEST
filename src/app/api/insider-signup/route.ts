@@ -54,3 +54,7 @@ export async function GET() {
     { status: 405 }
   );
 }
+export async function GET() {
+  return NextResponse.json({ status: 'ok', message: 'Insider API live' })
+}
+
