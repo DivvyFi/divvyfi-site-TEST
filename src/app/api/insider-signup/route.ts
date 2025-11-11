@@ -1,60 +1,48 @@
-// src/app/api/insider-signup/route.ts
-
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, email } = await req.json();
+    const { email } = await req.json();
 
-    if (!name || !email) {
-      return NextResponse.json(
-        { message: "Missing required fields" },
-        { status: 400 }
-      );
+    if (!email) {
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // Brevo SMTP transport
+    // ✅ Set up transporter
     const transporter = nodemailer.createTransport({
-      host: "smtp-relay.brevo.com",
-      port: 587,
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false,
       auth: {
-        user: process.env.BREVO_SMTP_USER, // 9ab2a7001@smtp-brevo.com
-        pass: process.env.BREVO_SMTP_PASS, // your Brevo key
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
-    // Send email
+    // ✅ Send email
     await transporter.sendMail({
-      from: '"DivvyFi" <contact@divvyfi.com>',
-      to: "info.divvyfi@gmail.com",
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: process.env.SMTP_TO || process.env.SMTP_USER,
       subject: "New Insider Signup",
-      text: `Name: ${name}\nEmail: ${email}`,
+      text: `New signup: ${email}`,
+      html: `<p>New signup: <strong>${email}</strong></p>`,
     });
 
-    console.log("✅ Email sent successfully:", name, email);
-
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Signup error:", error);
     return NextResponse.json(
-      { message: "Signup successful" },
-      { status: 200 }
-    );
-  } catch (error: any) {
-    console.error("❌ Email send error:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error", error: error.message },
+      { error: "Failed to send email" },
       { status: 500 }
     );
   }
 }
 
-// Optional: Handle unsupported methods
+// ✅ Keep this single GET endpoint
 export async function GET() {
-  return NextResponse.json(
-    { message: "Method Not Allowed" },
-    { status: 405 }
-  );
+  return NextResponse.json({
+    status: "ok",
+    message: "Insider API live",
+  });
 }
-export async function GET() {
-  return NextResponse.json({ status: 'ok', message: 'Insider API live' })
-}
-
