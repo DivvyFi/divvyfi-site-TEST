@@ -1,77 +1,186 @@
 'use client'
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react'
 
-export default function InsiderSignup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+const InsiderSignupForm = () => {
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    assetClass: 'real estate',
+    netWorth: '',
+  })
+
+  const [loader, setLoader] = useState(false)
+  const [showThanks, setShowThanks] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false)
+
+  useEffect(() => {
+    const isValid =
+      formData.firstname.trim() !== '' &&
+      formData.lastname.trim() !== '' &&
+      formData.email.trim() !== '' &&
+      formData.assetClass.trim() !== ''
+    setIsFormValid(isValid)
+  }, [formData])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const reset = () => {
+    setFormData({
+      firstname: '',
+      lastname: '',
+      email: '',
+      assetClass: 'real estate',
+      netWorth: '',
+    })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage(null);
+    e.preventDefault()
+    if (!isFormValid) return
+
+    setLoader(true)
 
     try {
       const res = await fetch('/api/insider-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data?.error || 'Something went wrong');
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setShowThanks(true)
+        reset()
+        setTimeout(() => setShowThanks(false), 5000)
+      } else {
+        console.error('Submission failed:', data.error)
       }
-
-      setMessage({ type: 'success', text: '✅ You’re on the list! Welcome to DivvyFi Insider.' });
-      setName('');
-      setEmail('');
-    } catch (err: any) {
-      console.error('Signup error:', err);
-      setMessage({ type: 'error', text: err.message || 'Failed to submit. Try again.' });
+    } catch (err) {
+      console.error('Fetch error:', err)
     } finally {
-      setLoading(false);
+      setLoader(false)
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gradient-to-br from-black via-[#0b0015] to-[#240030] text-white">
-      <h1 className="text-3xl md:text-4xl font-semibold mb-6">Become an Insider</h1>
+    <section id="insider" className="pt-36 scroll-mt-36">
+      <div className="container">
+        <div className="relative">
+          <h2 className="mb-12 capitalize">Join Our Insider List</h2>
+          <div className="relative border border-lightblue/35 px-6 py-6 rounded-2xl">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-wrap w-full m-auto justify-between"
+            >
+              <div className="sm:flex gap-6 w-full">
+                <div className="flex-1 my-2.5">
+                  <label htmlFor="firstname" className="pb-3 inline-block text-base text-lightpurple">
+                    First Name
+                  </label>
+                  <input
+                    id="firstname"
+                    type="text"
+                    name="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    placeholder="John"
+                    className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
+                  />
+                </div>
+                <div className="flex-1 my-2.5">
+                  <label htmlFor="lastname" className="pb-3 inline-block text-base text-lightpurple">
+                    Last Name
+                  </label>
+                  <input
+                    id="lastname"
+                    type="text"
+                    name="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    placeholder="Doe"
+                    className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
+                  />
+                </div>
+              </div>
 
-      {message && (
-        <div className={`mb-4 ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
-          {message.text}
+              <div className="sm:flex gap-6 w-full">
+                <div className="flex-1 my-2.5">
+                  <label htmlFor="email" className="pb-3 inline-block text-base text-lightpurple">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john.doe@example.com"
+                    className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
+                  />
+                </div>
+                <div className="flex-1 my-2.5">
+                  <label htmlFor="assetClass" className="pb-3 inline-block text-base text-lightpurple">
+                    Interested Asset Class
+                  </label>
+                  <select
+                    id="assetClass"
+                    name="assetClass"
+                    value={formData.assetClass}
+                    onChange={handleChange}
+                    className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border bg-dark transition-all duration-500 focus:border-primary focus:outline-0 text-white"
+                  >
+                    <option value="real estate">Real Estate</option>
+                    <option value="business">Business</option>
+                    <option value="commodities">Commodities</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="w-full my-2.5">
+                <label htmlFor="netWorth" className="pb-3 inline-block text-base text-lightpurple">
+                  Your Net Worth (Optional)
+                </label>
+                <input
+                  id="netWorth"
+                  type="text"
+                  name="netWorth"
+                  value={formData.netWorth}
+                  onChange={handleChange}
+                  placeholder="$100,000"
+                  className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
+                />
+              </div>
+
+              <div className="w-full my-2.5">
+                <button
+                  type="submit"
+                  disabled={!isFormValid || loader}
+                  className={`border leading-none px-6 text-lg font-medium py-4 rounded-full ${
+                    !isFormValid || loader
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-primary border-primary text-white hover:bg-transparent hover:text-primary cursor-pointer'
+                  }`}
+                >
+                  Join Now
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {showThanks && (
+            <div className="text-white bg-primary rounded-full px-4 text-lg mb-4.5 mt-1 absolute flex items-center gap-2">
+              Thank you! You've been added to the insider list.
+              <div className="w-3 h-3 rounded-full animate-spin border-2 border-lightblue border-t-transparent"></div>
+            </div>
+          )}
         </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-black border border-white/20 text-white"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-4 py-2 rounded-md bg-black border border-white/20 text-white"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full py-2 rounded-md bg-purple-700 hover:bg-purple-500 transition text-white"
-        >
-          {loading ? 'Submitting...' : 'Join the Insider List'}
-        </button>
-      </form>
-    </div>
-  );
+      </div>
+    </section>
+  )
 }
+
+export default InsiderSignupForm
