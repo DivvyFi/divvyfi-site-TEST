@@ -1,174 +1,149 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Input from "../../components/Input";
+import ResultsCard from "../../components/ResultsCard";
+import DealChart from "../../components/DealChart";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { analyzeDeal } from "../../lib/api";
 
 export default function DealAnalyzerPage() {
   const [form, setForm] = useState({
+    purchasePrice: "",
     revenue: "",
     expenses: "",
-    ebitda: "",
-    askingPrice: "",
-    riskScore: "",
-    partnerCount: "",
+    sde: "",
+    downPayment: "",
+    interestRate: "",
+    loanYears: "",
+    partners: "1",
+    projectedGrowth: "0.05",
+    industry: "",
+    location: "",
   });
 
-  const [valuation, setValuation] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  function updateField(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+  }
 
-  async function analyzeDeal() {
+  async function submit() {
     setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      // convert numbers where appropriate
+      const payload = {
+        ...form,
+        purchasePrice: Number(form.purchasePrice || 0),
+        revenue: Number(form.revenue || 0),
+        expenses: Number(form.expenses || 0),
+        sde: Number(form.sde || 0),
+        debtTerms: {
+          downPayment: Number(form.downPayment || 0),
+          interestRate: Number(form.interestRate || 0),
+          loanYears: Number(form.loanYears || 0),
+        },
+        partners: Array.from({ length: Number(form.partners || 1) }).map((_, i) => ({ name: `P${i+1}`, equity: Math.round(100 / Number(form.partners || 1)) })),
+        investors: [],
+        projectedGrowth: Number(form.projectedGrowth || 0.05),
+        industry: form.industry,
+        location: form.location,
+      };
 
-    // Example mock valuation logic (replace with API call)
-    const netIncome =
-      Number(form.revenue) - Number(form.expenses);
-
-    const multiplier = 3.2; // sample EBITDA multiple
-    const estimatedValue = Number(form.ebitda) * multiplier;
-
-    setValuation({
-      netIncome,
-      estimatedValue,
-      underValued: estimatedValue > Number(form.askingPrice),
-      partnerRisk:
-        Number(form.riskScore) >= 7
-          ? "High Risk"
-          : Number(form.riskScore) >= 4
-          ? "Moderate Risk"
-          : "Low Risk",
-      perPartnerContribution:
-        Number(form.askingPrice) / Number(form.partnerCount || 1),
-    });
-
-    setLoading(false);
+      const res = await analyzeDeal(payload);
+      setResult(res);
+    } catch (err: any) {
+      console.error(err);
+      setError(err?.message || "Analysis failed");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0b021a] to-[#160233] text-white px-6 py-10">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-[#0b021a] to-[#160233] text-white p-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.header initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-center">DivvyFi — Deal Analyzer</h1>
+          <p className="text-center text-purple-300 mt-2 max-w-2xl mx-auto">
+            Analyze business acquisitions for fractional ownership — partner risk, cashflow, investor returns, and a clear Deal Score.
+          </p>
+        </motion.header>
 
-        {/* HEADER */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold mb-2 text-center"
-        >
-          DivvyFi Deal Analyzer
-        </motion.h1>
-        <p className="text-center text-purple-300 mb-10">
-          AI-powered valuation for fractional business acquisitions
-        </p>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* LEFT: Form */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="lg:col-span-1 bg-[#15072a] border border-purple-800 rounded-xl p-6 shadow">
+            <h2 className="text-xl font-semibold mb-4">Deal Inputs</h2>
 
-        {/* FORM */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-[#15072a] border border-purple-800 rounded-xl p-6 shadow-xl"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <Input label="Purchase Price ($)" name="purchasePrice" value={form.purchasePrice} onChange={updateField} />
+            <Input label="Annual Revenue ($)" name="revenue" value={form.revenue} onChange={updateField} />
+            <Input label="Annual Expenses ($)" name="expenses" value={form.expenses} onChange={updateField} />
+            <Input label="SDE / EBITDA ($)" name="sde" value={form.sde} onChange={updateField} />
 
-            <Input
-              label="Annual Revenue ($)"
-              name="revenue"
-              value={form.revenue}
-              onChange={handleChange}
-            />
+            <div className="grid grid-cols-2 gap-2">
+              <Input label="Down Payment ($)" name="downPayment" value={form.downPayment} onChange={updateField} />
+              <Input label="Interest Rate (%)" name="interestRate" value={form.interestRate} onChange={updateField} />
+            </div>
 
-            <Input
-              label="Annual Expenses ($)"
-              name="expenses"
-              value={form.expenses}
-              onChange={handleChange}
-            />
+            <div className="grid grid-cols-2 gap-2">
+              <Input label="Loan Years" name="loanYears" value={form.loanYears} onChange={updateField} />
+              <Input label="Partners" name="partners" value={form.partners} onChange={updateField} />
+            </div>
 
-            <Input
-              label="EBITDA ($)"
-              name="ebitda"
-              value={form.ebitda}
-              onChange={handleChange}
-            />
+            <Input label="Projected Annual Growth (dec)" name="projectedGrowth" value={form.projectedGrowth} onChange={updateField} />
+            <Input label="Industry" name="industry" value={form.industry} onChange={updateField} />
+            <Input label="Location" name="location" value={form.location} onChange={updateField} />
 
-            <Input
-              label="Asking Price ($)"
-              name="askingPrice"
-              value={form.askingPrice}
-              onChange={handleChange}
-            />
+            <button
+              onClick={submit}
+              disabled={loading}
+              className="w-full mt-4 bg-gradient-to-r from-purple-600 to-violet-500 py-3 rounded-lg font-semibold shadow hover:brightness-105 disabled:opacity-60"
+            >
+              {loading ? <LoadingSpinner /> : "Run Analysis"}
+            </button>
 
-            <Input
-              label="Risk Score (1-10)"
-              name="riskScore"
-              value={form.riskScore}
-              onChange={handleChange}
-            />
-
-            <Input
-              label="Number of Partners"
-              name="partnerCount"
-              value={form.partnerCount}
-              onChange={handleChange}
-            />
-          </div>
-
-          <button
-            onClick={analyzeDeal}
-            disabled={loading}
-            className="w-full bg-purple-600 hover:bg-purple-700 transition rounded-lg py-3 font-semibold"
-          >
-            {loading ? "Analyzing..." : "Run Deal Analysis"}
-          </button>
-        </motion.div>
-
-        {/* RESULTS */}
-        {valuation && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-10 bg-[#1a0c33] border border-purple-900 p-6 rounded-xl shadow-xl"
-          >
-            <h2 className="text-2xl font-semibold mb-4">Analysis Results</h2>
-
-            <Result label="Net Income" value={`$${valuation.netIncome.toLocaleString()}`} />
-            <Result label="Estimated Business Value" value={`$${valuation.estimatedValue.toLocaleString()}`} />
-            <Result
-              label="Under Valued?"
-              value={valuation.underValued ? "YES — Good Deal" : "NO — Overpriced"}
-            />
-            <Result label="Partner Risk Level" value={valuation.partnerRisk} />
-            <Result
-              label="Contribution Per Partner"
-              value={`$${valuation.perPartnerContribution.toLocaleString()}`}
-            />
+            {error && <div className="mt-3 text-red-400 text-sm">{error}</div>}
           </motion.div>
-        )}
+
+          {/* RIGHT: Results */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="lg:col-span-2 space-y-6">
+            {result ? (
+              <>
+                <ResultsCard title="Deal Summary" result={result} />
+                <div className="bg-[#130620] border border-purple-900 rounded-xl p-6 shadow">
+                  <h3 className="text-lg font-semibold mb-4">Cashflow & Projections</h3>
+                  <DealChart data={result?.cashflowProjection || sampleProjection(result)} />
+                </div>
+                <div className="bg-[#0f0520] border border-purple-900 rounded-xl p-6 shadow">
+                  <h3 className="text-lg font-semibold mb-3">AI Recommendations</h3>
+                  <ul className="list-disc ml-5 text-sm text-purple-200">
+                    {(result.recommendations || []).slice(0, 8).map((r:any, idx:number) => (
+                      <li key={idx} className="mb-2">{r}</li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <div className="bg-[#11031a] border border-purple-900 rounded-xl p-8 text-center text-purple-300">
+                Enter deal inputs and click <strong>Run Analysis</strong> to see results here.
+              </div>
+            )}
+          </motion.div>
+        </div>
       </div>
     </div>
   );
 }
 
-function Input({ label, ...props }: any) {
-  return (
-    <div>
-      <label className="block mb-1 text-purple-300 text-sm">
-        {label}
-      </label>
-      <input
-        {...props}
-        className="w-full bg-[#0e051e] border border-purple-700 text-white px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-  );
-}
-
-function Result({ label, value }: any) {
-  return (
-    <div className="flex justify-between py-2 border-b border-purple-900">
-      <span className="text-purple-300">{label}</span>
-      <span className="font-semibold">{value}</span>
-    </div>
-  );
+/** fallback sample projection generator */
+function sampleProjection(result:any) {
+  if (!result) {
+    return Array.from({ length: 5 }).map((_, i) => ({ year: i+1, cashflow: 20000 * (i+1) }));
+  }
+  return result.cashflowProjection || Array.from({ length: 5 }).map((_, i) => ({ year: i+1, cashflow: (result.profitability?.annualCashflow || 0) * Math.pow(1 + (result.projectedGrowth || 0.05), i) }));
 }
